@@ -19,7 +19,7 @@
 	}
 </script>
 
-<div class="min-w-[384px] w-96 h-full bg-white select-none drop-shadow-md">
+<div class="min-w-[384px] w-96 h-full bg-white select-none drop-shadow-md overflow-y-scroll">
 	<div class="text-3xl font-semibold ml-5 mt-3">Term</div>
 	<hr class="mb-5 mr-5 ml-5 mt-1" />
 	<div class="flex w-full justify-center">
