@@ -1,6 +1,6 @@
 <script>
     import "../app.css";
-    import Header from './components/header.svelte'
+    import Header from '$lib/components/header.svelte'
   </script>
   
   <div class="w-screen h-screen bg-base-100">
