@@ -1,10 +1,10 @@
 <script>
     import SearchBar from "./components/SearchBar.svelte";
-     import Filter from './filter.svelte'
+     import Filter from './components/filter.svelte'
 </script>
 
 
-    <div class="w-80 h-full flex">
+    <div class="w-full h-full flex">
         <Filter/>
-<SearchBar class="w-full" on:search={(e) => console.log(e.detail)} />
+        <SearchBar on:search={(e) => console.log(e.detail)} />
     </div>

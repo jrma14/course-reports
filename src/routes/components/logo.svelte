@@ -1,4 +1,4 @@
-<svg version="1.1" id="Layer_mobile_logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 68 22" style="enable-background:new 0 0 68 22;" xml:space="preserve" aria-labelledby="WPIShortdesc">
+<svg class="w-40 h-10" version="1.1" id="Layer_mobile_logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 68 22" style="enable-background:new 0 0 68 22;" xml:space="preserve" aria-labelledby="WPIShortdesc">
     <style type="text/css">
         .st0{fill:#FFFFFF;}
     </style>
