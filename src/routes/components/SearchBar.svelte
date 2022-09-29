@@ -10,7 +10,7 @@
 	}
 </script>
 
-<div class="form-control w-full m-5 drop-shadow-md">
+<div class="form-control w-full m-3 drop-shadow-md">
 	<div class="input-group">
 		<input
 			type="text"

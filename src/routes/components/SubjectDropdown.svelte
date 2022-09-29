@@ -15,7 +15,7 @@
 	<div class="collapse-content">
         <div class="grid grid-cols-2 gap-4">
             {#each pills as pill}
-                <Pill text={pill} />
+                <Pill text={pill} size=""/>
             {/each}
         </div>
 	</div>
