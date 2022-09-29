@@ -1,27 +1,22 @@
 <script>
 	export let text;
+	export let checked = false;
+	export let size = 'large';
 
-	export let size;
+	const uncheckedStyles = `flex justify-center items-center rounded-full bg-base-100 ${
+		size === 'sm' ? 'w-20' : 'w-40 h-8'
+	} mr-auto ml-auto hover:cursor-pointer hover:bg-primary/50`;
+	const checkedStyles = `flex justify-center items-center rounded-full text-white bg-primary ${
+		size === 'sm' ? 'w-20' : 'w-40 h-8'
+	} mr-auto ml-auto hover:cursor-pointer`;
+	let pillClasses = uncheckedStyles;
 
-	export function clickedPill(pill) {
-		let element = pill.srcElement;
-		if (element.classList.contains('bg-base-100')) {
-			element.classList.remove('bg-base-100');
-			element.classList.add('bg-primary');
-			element.classList.add('text-white');
-		} else {
-			element.classList.remove('bg-primary');
-			element.classList.remove('text-white');
-			element.classList.add('bg-base-100');
-		}
+	function clickedPill() {
+		checked = !checked;
+		pillClasses = checked ? checkedStyles : uncheckedStyles;
 	}
 </script>
 
-<div
-	on:click={(e) => clickedPill(e)}
-	class="flex justify-center items-center rounded-full bg-base-100 {size === 'sm'
-		? 'w-20'
-		: 'w-40 h-8'} mr-auto ml-auto"
->
+<div on:click={clickedPill} class={pillClasses}>
 	{text}
 </div>
