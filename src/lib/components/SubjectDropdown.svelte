@@ -13,7 +13,7 @@
 
 <div class="collapse collapse-arrow border border-base-100 bg-white rounded-[30px] m-5 {dropdownClass}">
 	<div class="flex collapse-title text-xl font-medium items-center" on:click={() => {isOpen = !isOpen}}>
-		<input class="checkbox checkbox-sm mr-2" type="checkbox" on:click="{(e) => e.stopPropagation()}" />
+		<input class="checkbox checkbox-sm mr-2 checkbox-primary" type="checkbox" on:click="{(e) => e.stopPropagation()}" />
 		{subject}
 	</div>
 	<div class="collapse-content">
