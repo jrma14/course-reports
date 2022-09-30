@@ -11,6 +11,8 @@ module.exports = {
           "base-100": "#ECF0F1",
         },
       },
+      'light',
+      'dark',
     ],
   },
   content: ['./src/**/*.{html,js,svelte,ts}'],

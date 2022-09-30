@@ -1,6 +1,5 @@
 <script>
     import "../app.css";
-
 </script>
 
 <h1 class="text-6xl text-center m-3">
