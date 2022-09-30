@@ -6,17 +6,13 @@
     export let pills
 
 
-	let dropdownClass = 'collapse-close';
+	$: dropdownClass = isOpen ? 'collapse-open' : 'collapse-close'
 
-	const handleDropdownClick = () => {
-		isOpen = !isOpen;
-		dropdownClass = isOpen ? 'collapse-open' : 'collapse-close'
-	}
 
 </script>
 
 <div class="collapse collapse-arrow border border-base-100 bg-white rounded-[30px] m-5 {dropdownClass}">
-	<div class="flex collapse-title text-xl font-medium items-center" on:click="{handleDropdownClick}">
+	<div class="flex collapse-title text-xl font-medium items-center" on:click={() => {isOpen = !isOpen}}>
 		<input class="checkbox checkbox-sm mr-2" type="checkbox" on:click="{(e) => e.stopPropagation()}" />
 		{subject}
 	</div>
