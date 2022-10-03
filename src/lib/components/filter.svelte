@@ -19,7 +19,9 @@
 	}
 </script>
 
-<div class="min-w-[384px] w-96 h-full bg-white select-none drop-shadow-md overflow-y-scroll overflow-x-clip">
+<div
+	class="min-w-[384px] w-96 h-full bg-white select-none drop-shadow-md overflow-y-scroll overflow-x-clip"
+>
 	<div class="text-3xl font-semibold ml-5 mt-3">Term</div>
 	<hr class="mb-5 mr-5 ml-5 mt-1" />
 	<div class="flex w-full justify-center">
@@ -54,7 +56,10 @@
 	<hr class="mb-5 mr-5 ml-5 mt-1" />
 	<div class="text-3xl font-semibold ml-5 mt-5 flex w-full">
 		Listings
-		<div class="tooltip ml-auto mr-10 self-end h-6" data-tip="Current listings are just the courses that are available this year, so any cat II courses that do not occur this year will not be shown">
+		<div
+			class="tooltip ml-auto mr-10 self-end h-6"
+			data-tip="Current listings are just the courses that are available this year, so any cat II courses that do not occur this year will not be shown"
+		>
 			<Help />
 		</div>
 	</div>
@@ -64,23 +69,28 @@
 		>
 			Current Listings
 		</div>
-		<input type="checkbox" class="toggle" on:click={(e) => {
-			if(e.srcElement.checked){
-				document.getElementsByClassName('allListings')[0].classList.remove('bg-base-100');
-				document.getElementsByClassName('allListings')[0].classList.add('bg-primary');
-				document.getElementsByClassName('allListings')[0].classList.add('text-white');
-				document.getElementsByClassName('currentListings')[0].classList.remove('bg-primary');
-				document.getElementsByClassName('currentListings')[0].classList.remove('text-white');
-				document.getElementsByClassName('currentListings')[0].classList.add('bg-base-100');
-			} else {
-				document.getElementsByClassName('allListings')[0].classList.remove('bg-primary');
-				document.getElementsByClassName('allListings')[0].classList.remove('text-white');
-				document.getElementsByClassName('allListings')[0].classList.add('bg-base-100');
-				document.getElementsByClassName('currentListings')[0].classList.remove('bg-base-100');
-				document.getElementsByClassName('currentListings')[0].classList.add('bg-primary');
-				document.getElementsByClassName('currentListings')[0].classList.add('text-white');
-			}
-		}} checked />
+		<input
+			type="checkbox"
+			class="toggle"
+			on:click={(e) => {
+				if (e.srcElement.checked) {
+					document.getElementsByClassName('allListings')[0].classList.remove('bg-base-100');
+					document.getElementsByClassName('allListings')[0].classList.add('bg-primary');
+					document.getElementsByClassName('allListings')[0].classList.add('text-white');
+					document.getElementsByClassName('currentListings')[0].classList.remove('bg-primary');
+					document.getElementsByClassName('currentListings')[0].classList.remove('text-white');
+					document.getElementsByClassName('currentListings')[0].classList.add('bg-base-100');
+				} else {
+					document.getElementsByClassName('allListings')[0].classList.remove('bg-primary');
+					document.getElementsByClassName('allListings')[0].classList.remove('text-white');
+					document.getElementsByClassName('allListings')[0].classList.add('bg-base-100');
+					document.getElementsByClassName('currentListings')[0].classList.remove('bg-base-100');
+					document.getElementsByClassName('currentListings')[0].classList.add('bg-primary');
+					document.getElementsByClassName('currentListings')[0].classList.add('text-white');
+				}
+			}}
+			checked
+		/>
 		<div
 			class="allListings w-32 flex justify-center items-center rounded-full bg-primary text-white mr-auto ml-auto"
 		>
