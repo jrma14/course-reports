@@ -2,13 +2,35 @@
 	import Help from './helpoutline.svelte';
 	import DropDown from './SubjectDropdown.svelte';
 	import Pill from './Pill.svelte';
+	import { term, subject, searchQuery, runSearch } from "$lib/stores/filter.js";
+
 
 	let termPills = [false, false, false, false];
 
 	//function for updating termPills
 	function updateTermPills(index, value) {
 		termPills[index] = value;
-		console.log(termPills);
+		// console.log(termPills);
+		//turn termPills into a string with the values of the selected pills separated by commas
+		let termString = "";
+		// index gets mapped to letter
+		let indexToLetter = {
+			0: "A",
+			1: "B",
+			2: "C",
+			3: "D"
+		};
+		for (let i = 0; i < termPills.length; i++) {
+			if (termPills[i]) {
+				termString += indexToLetter[i] + ",";
+			}
+		}
+		//remove the last comma if there is one
+		if (termString[termString.length - 1] === ",") {
+			termString = termString.slice(0, -1);
+		}
+		term.set(termString);
+		runSearch();
 		// termPills = [...termPills];
 	}
 
@@ -29,9 +51,9 @@
 		<Pill text="D Term" size="sm" on:selected={(e) => updateTermPills(3, e.detail)} />
 	</div>
 	<div class="text-3xl font-semibold ml-5 mt-5">Subject</div>
-	<DropDown subject="Science" pills={['Physics']} />
+	<DropDown subjectText="Science" pills={['Physics']} />
 	<DropDown
-		subject="Engineering"
+		subjectText="Engineering"
 		pills={[
 			'Aerospace',
 			'Architectural',
