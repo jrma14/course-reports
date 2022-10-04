@@ -2,21 +2,6 @@
 	import Help from './helpoutline.svelte';
 	import DropDown from './SubjectDropdown.svelte';
 	import Pill from './Pill.svelte';
-
-	let pills = [false, false, false, false];
-
-	function clickedPill(ind) {
-		pills[ind] = !pills[ind];
-		if (pills[ind]) {
-			document.getElementsByClassName('pill')[ind].classList.remove('bg-base-100');
-			document.getElementsByClassName('pill')[ind].classList.add('bg-primary');
-			document.getElementsByClassName('pill')[ind].classList.add('text-white');
-		} else {
-			document.getElementsByClassName('pill')[ind].classList.remove('bg-primary');
-			document.getElementsByClassName('pill')[ind].classList.remove('text-white');
-			document.getElementsByClassName('pill')[ind].classList.add('bg-base-100');
-		}
-	}
 </script>
 
 <div
