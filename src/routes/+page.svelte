@@ -8,6 +8,8 @@
 	/** @type { import('./$types').PageData }*/
 	// export let data;
 	// const rows = Object.values(data);
+
+	$: console.log($data);
 </script>
 
 <div class="w-full h-[calc(100vh-64px)] flex overflow-hidden">
@@ -20,6 +22,8 @@
 				runSearch();
 			}}
 		/>
+		<h1 class="font-bold">Dumb names thanks to Oscar!</h1>
+
 		<VirtualList items={$data} let:item>
 			<h1>{item.course_title}</h1>
 		</VirtualList>

@@ -10,7 +10,7 @@ export async function GET({ url }) {
         connectionLimit: 10
     })
     let term = url.searchParams.get('term') ?? ''
-    console.log(term)
-    let [rows] = await connection.execute('SELECT course_title FROM courses WHERE term = ?', [term])
+    let searchQuery = url.searchParams.get('searchQuery') ?? 'web'
+    let [rows] = await connection.execute('SELECT course_title, course_number FROM courses WHERE term = ? AND course_title LIKE ? OR course_number LIKE ? GROUP BY course_number, course_title', [term, `%${searchQuery}%`, `%${searchQuery}%`])
     return json(rows)
 }
