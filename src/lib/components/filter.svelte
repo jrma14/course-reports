@@ -2,6 +2,19 @@
 	import Help from './helpoutline.svelte';
 	import DropDown from './SubjectDropdown.svelte';
 	import Pill from './Pill.svelte';
+
+	let termPills = [false, false, false, false];
+
+	//function for updating termPills
+	function updateTermPills(index, value) {
+		termPills[index] = value;
+		console.log(termPills);
+		// termPills = [...termPills];
+	}
+
+	let helpVisible = false;
+	let showAllListings = true;
+	let selectedClass = 'bg-primary text-white bg-base-100';
 </script>
 
 <div
@@ -10,10 +23,10 @@
 	<div class="text-3xl font-semibold ml-5 mt-3">Term</div>
 	<hr class="mb-5 mr-5 ml-5 mt-1" />
 	<div class="flex w-full justify-center">
-		<Pill text="A Term" size="sm" />
-		<Pill text="B Term" size="sm" />
-		<Pill text="C Term" size="sm" />
-		<Pill text="D Term" size="sm" />
+		<Pill text="A Term" size="sm" on:selected={(e) => updateTermPills(0, e.detail)} />
+		<Pill text="B Term" size="sm" on:selected={(e) => updateTermPills(1, e.detail)} />
+		<Pill text="C Term" size="sm" on:selected={(e) => updateTermPills(2, e.detail)} />
+		<Pill text="D Term" size="sm" on:selected={(e) => updateTermPills(3, e.detail)} />
 	</div>
 	<div class="text-3xl font-semibold ml-5 mt-5">Subject</div>
 	<DropDown subject="Science" pills={['Physics']} />
@@ -41,43 +54,34 @@
 	<hr class="mb-5 mr-5 ml-5 mt-1" />
 	<div class="text-3xl font-semibold ml-5 mt-5 flex w-full">
 		Listings
-		<div
-			class="tooltip ml-auto mr-10 self-end h-6"
-			data-tip="Current listings are just the courses that are available this year, so any cat II courses that do not occur this year will not be shown"
-		>
+		<div class="ml-auto mr-10 self-end h-6" on:click={() => (helpVisible = !helpVisible)}>
 			<Help />
 		</div>
 	</div>
+	<p class="text-xs font-normal ml-5 mt-1 {helpVisible ? 'visible' : 'hidden'}">
+		Current listings are just the courses that are available this year, so any cat II courses that
+		do not occur this year will not be shown
+	</p>
 	<div class="flex mt-5">
 		<div
-			class="currentListings w-32 flex justify-center items-center rounded-full bg-base-100 mr-auto ml-auto"
+			class="{showAllListings
+				? ''
+				: selectedClass} w-32 flex justify-center items-center rounded-full mr-auto ml-auto"
 		>
 			Current Listings
 		</div>
 		<input
 			type="checkbox"
 			class="toggle"
-			on:click={(e) => {
-				if (e.srcElement.checked) {
-					document.getElementsByClassName('allListings')[0].classList.remove('bg-base-100');
-					document.getElementsByClassName('allListings')[0].classList.add('bg-primary');
-					document.getElementsByClassName('allListings')[0].classList.add('text-white');
-					document.getElementsByClassName('currentListings')[0].classList.remove('bg-primary');
-					document.getElementsByClassName('currentListings')[0].classList.remove('text-white');
-					document.getElementsByClassName('currentListings')[0].classList.add('bg-base-100');
-				} else {
-					document.getElementsByClassName('allListings')[0].classList.remove('bg-primary');
-					document.getElementsByClassName('allListings')[0].classList.remove('text-white');
-					document.getElementsByClassName('allListings')[0].classList.add('bg-base-100');
-					document.getElementsByClassName('currentListings')[0].classList.remove('bg-base-100');
-					document.getElementsByClassName('currentListings')[0].classList.add('bg-primary');
-					document.getElementsByClassName('currentListings')[0].classList.add('text-white');
-				}
+			on:click={() => {
+				showAllListings = !showAllListings;
 			}}
 			checked
 		/>
 		<div
-			class="allListings w-32 flex justify-center items-center rounded-full bg-primary text-white mr-auto ml-auto"
+			class="{showAllListings
+				? selectedClass
+				: ''} w-32 flex justify-center items-center rounded-full mr-auto ml-auto"
 		>
 			All Listings
 		</div>

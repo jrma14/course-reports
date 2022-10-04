@@ -3,6 +3,12 @@
 	export let checked = false;
 	export let size = 'large';
 
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	// dispatch('search', searchQuery);
+
 	const uncheckedStyles = `flex justify-center items-center rounded-full bg-base-100 ${
 		size === 'sm' ? 'w-20' : 'w-40 h-8'
 	} mr-auto ml-auto hover:cursor-pointer hover:bg-primary/50`;
@@ -17,6 +23,7 @@
 <div
 	on:click={() => {
 		checked = !checked;
+		dispatch('selected', checked);
 	}}
 	class={pillClasses}
 >
