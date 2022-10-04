@@ -1,14 +1,13 @@
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
+import { data } from "$lib/stores/filterResult.js"
 
 
 export const searchQuery = writable('');
 export const term = writable('');
 export const subject = writable('');
 
-export function runSearch() {
-console.log('running search: ');
-//print out the values of the stores
-searchQuery.subscribe(value => console.log( 'searchQuery: ' + value));
-term.subscribe(value => console.log( 'term: ' + value));
-subject.subscribe(value => console.log( 'subject: ' + value));
+export async function runSearch() {
+    let res = await fetch(`http://127.0.0.1:5173/api/query/?term=${get(term)}`)
+    let json = await res.json()
+    data.set(Object.values(json))
 }

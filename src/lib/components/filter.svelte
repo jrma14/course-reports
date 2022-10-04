@@ -2,8 +2,7 @@
 	import Help from './helpoutline.svelte';
 	import DropDown from './SubjectDropdown.svelte';
 	import Pill from './Pill.svelte';
-	import { term, subject, searchQuery, runSearch } from "$lib/stores/filter.js";
-
+	import { term, subject, searchQuery, runSearch } from '$lib/stores/filter.js';
 
 	let termPills = [false, false, false, false];
 
@@ -12,21 +11,21 @@
 		termPills[index] = value;
 		// console.log(termPills);
 		//turn termPills into a string with the values of the selected pills separated by commas
-		let termString = "";
+		let termString = '';
 		// index gets mapped to letter
 		let indexToLetter = {
-			0: "A",
-			1: "B",
-			2: "C",
-			3: "D"
+			0: 'A',
+			1: 'B',
+			2: 'C',
+			3: 'D'
 		};
 		for (let i = 0; i < termPills.length; i++) {
 			if (termPills[i]) {
-				termString += indexToLetter[i] + ",";
+				termString += indexToLetter[i] + ',';
 			}
 		}
 		//remove the last comma if there is one
-		if (termString[termString.length - 1] === ",") {
+		if (termString[termString.length - 1] === ',') {
 			termString = termString.slice(0, -1);
 		}
 		term.set(termString);
@@ -40,7 +39,7 @@
 </script>
 
 <div
-	class="min-w-[384px] w-96 h-full bg-white select-none drop-shadow-md overflow-y-scroll overflow-x-clip"
+	class="min-w-1/4 w-1/4 h-full bg-white select-none drop-shadow-md overflow-y-scroll overflow-x-clip"
 >
 	<div class="text-3xl font-semibold ml-5 mt-3">Term</div>
 	<hr class="mb-5 mr-5 ml-5 mt-1" />
