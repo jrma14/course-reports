@@ -39,7 +39,7 @@ export async function GET({ url }) {
         }
         queries.push(`(${subjectsQuery.join('OR ')}) `)
     }
-    let search = 'SELECT course_title, course_number, subject FROM courses GROUP BY course_title, course_number, subject LIMIT 3'
+    let search = 'SELECT course_title, course_number, subject FROM courses GROUP BY course_title, course_number, subject'
     // console.log(queryParams.length)
     if (queryParams.length > 0) {
         search = 'SELECT course_title, course_number, subject FROM courses WHERE ' + queries.join('AND ') + 'GROUP BY course_number, course_title, subject'

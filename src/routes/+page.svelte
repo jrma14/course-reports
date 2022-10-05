@@ -5,6 +5,7 @@
 	import { term, subject, searchQuery, runSearch } from '$lib/stores/filter.js';
 	import { data } from '$lib/stores/filterResult.js';
 	import ClassCard from '../lib/components/ClassCard.svelte';
+	import { onMount } from 'svelte';
 
 	/** @type { import('./$types').PageData }*/
 	// export let data;
@@ -17,6 +18,8 @@
 	// 		console.log(i.course_title);
 	// 	}
 	// }
+
+	runSearch();
 </script>
 
 <div class="w-full h-[calc(100vh-64px)] flex overflow-hidden">
