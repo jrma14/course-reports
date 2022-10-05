@@ -9,7 +9,13 @@
 	// export let data;
 	// const rows = Object.values(data);
 
-	$: console.log($data);
+	// $: console.log('$data:', $data);
+
+	// $: {
+	// 	for (let i of $data) {
+	// 		console.log(i.course_title);
+	// 	}
+	// }
 </script>
 
 <div class="w-full h-[calc(100vh-64px)] flex overflow-hidden">

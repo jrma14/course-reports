@@ -1,17 +1,13 @@
 import mysql from 'mysql2/promise'
 import { error } from '@sveltejs/kit'
 import { DATABASE_URL } from '$env/static/private'
+import { data } from '$lib/stores/filterResult.js'
+import { get } from 'svelte/store';
+import { runSearch } from '../lib/stores/filter'
 
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
-    const connection = await mysql.createPool({
-        uri: DATABASE_URL,
-        connectionLimit: 10
-    })
-    console.time('db')
-    let [rows] = await connection.query('SELECT course_title FROM courses LIMIT 10')
-    console.timeEnd('db')
-    return rows
-
+    // runSearch() // doesn't work on load?
+    // console.log('$data:', get(data));
 }
