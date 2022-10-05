@@ -50,7 +50,7 @@
 		<Pill text="D Term" size="sm" on:selected={(e) => updateTermPills(3, e.detail)} />
 	</div>
 	<div class="text-3xl font-semibold ml-5 mt-5">Subject</div>
-	<DropDown subjectText="Science" pills={['Physics']} />
+	<DropDown subjectText="Science" pills={['Physics']} subjects={['PH']} />
 	<DropDown
 		subjectText="Engineering"
 		pills={[
@@ -70,6 +70,23 @@
 			'Industrial',
 			'Robotics',
 			'Systems'
+		]}
+		subjects={[
+			'AE',
+			'AREN',
+			'BME',
+			'CE',
+			'CH',
+			'ECE',
+			'ECE',
+			'FP',
+			'ME',
+			'MFE',
+			'MTE',
+			'NSE',
+			'OIE',
+			'RBE',
+			'SYS'
 		]}
 	/>
 	<hr class="mb-5 mr-5 ml-5 mt-1" />

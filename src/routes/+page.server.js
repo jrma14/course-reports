@@ -8,6 +8,7 @@ import { runSearch } from '../lib/stores/filter'
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
-    // runSearch() // doesn't work on load?
+    // console.log('$data:', get(data));
+    // runSearch()
     // console.log('$data:', get(data));
 }

@@ -30,7 +30,7 @@
 			}}
 		/>
 		<h1 class="font-bold">Dumb names thanks to Oscar!</h1>
-		<div class="w-full h-full bg-white p-5 rounded-2xl drop-shadow-md">
+		<div class="w-full h-[calc(100vh-64px)] bg-white p-5 rounded-2xl drop-shadow-md">
 			<VirtualList items={$data} let:item>
 				<ClassCard title={item.course_title} number={item.course_number} />
 			</VirtualList>
