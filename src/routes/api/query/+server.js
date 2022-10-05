@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit'
+import { json } from '@sveltejs/kit'
 import mysql from 'mysql2/promise'
 import { DATABASE_URL } from '$env/static/private'
 
