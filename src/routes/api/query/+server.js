@@ -9,18 +9,23 @@ export async function GET({ url }) {
         uri: DATABASE_URL,
         connectionLimit: 10
     })
-    let term = url.searchParams.get('term') ?? ''
-    let searchQuery = url.searchParams.get('searchQuery') ?? ''
-    console.log(term)
-    console.log(searchQuery)
-    console.log(`SELECT course_title, course_number FROM courses WHERE term = ${term} AND course_title LIKE ${searchQuery} OR course_number LIKE ${searchQuery} GROUP BY course_number, course_title LIMIT 10`)
-    let [rows] = await connection.execute('SELECT course_title, course_number FROM courses WHERE term = ? AND course_title LIKE ? OR course_number LIKE ? GROUP BY course_number, course_title LIMIT 10', [`${term}`, `%${searchQuery}%`, `%${searchQuery}%`])
-    console.log(rows)
-    // if (term.length > 0 || searchQuery.length > 0) {
-    //     [rows] = await connection.execute('SELECT course_title, course_number FROM courses WHERE term = ? AND course_title LIKE ? OR course_number LIKE ? GROUP BY course_number, course_title', [term, `%${searchQuery}%`, `%${searchQuery}%`])
-    //     // [rows] = await connection.execute(`SELECT course_title, course_number FROM courses WHERE ${term.length > 0 ? 'term = ?' : ''} ${searchQuery.length > 0 ? 'AND course_title LIKE ? OR course_number LIKE ?' : ''} GROUP BY course_number, course_title`, [term, ` % ${searchQuery}% `, ` % ${searchQuery}% `])
-    // } else {
-    //     [rows] = await connection.execute(`SELECT course_title, course_number FROM courses GROUP BY course_number, course_title LIMIT`)
-    // }
+    let queryParams = []
+    let queries = []
+    let termQuery = 'term = ? '
+    if (url.searchParams.get('term') != undefined) {
+        queryParams.push(url.searchParams.get('term'))
+        queries.push(termQuery)
+    }
+    let sQuery = '(course_title LIKE ? OR course_number LIKE ?) '
+    if (url.searchParams.get('searchQuery') != undefined) {
+        queryParams.push(`%${url.searchParams.get('searchQuery')}%`)
+        queryParams.push(`%${url.searchParams.get('searchQuery')}%`)
+        queries.push(sQuery)
+    }
+    let search = 'SELECT course_title, course_number FROM courses WHERE ' + queries.join('AND ') + 'GROUP BY course_number, course_title LIMIT 10'
+    // console.log(search)
+    // console.log(queryParams)
+    let [rows] = await connection.execute(search, queryParams)
+    // console.log(rows)
     return json(rows)
 }
