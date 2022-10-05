@@ -13,8 +13,14 @@ export async function GET({ url }) {
     let queries = []
     let termQuery = 'term = ? '
     if (url.searchParams.get('term') != undefined) {
-        queryParams.push(url.searchParams.get('term'))
-        queries.push(termQuery)
+        let term = url.searchParams.get('term')
+        let terms = term.split(',')
+        let tQ = []
+        for (let t of terms) {
+            tQ.push(termQuery)
+            queryParams.push(t)
+        }
+        queries.push(`(${tQ.join('OR ')})`)
     }
     let sQuery = '(course_title LIKE ? OR course_number LIKE ?) '
     if (url.searchParams.get('searchQuery') != undefined) {
@@ -23,7 +29,7 @@ export async function GET({ url }) {
         queries.push(sQuery)
     }
     let search = 'SELECT course_title, course_number FROM courses WHERE ' + queries.join('AND ') + 'GROUP BY course_number, course_title LIMIT 10'
-    // console.log(search)
+    console.log(search)
     // console.log(queryParams)
     let [rows] = await connection.execute(search, queryParams)
     // console.log(rows)
