@@ -4,6 +4,7 @@
 	import VirtualList from '@sveltejs/svelte-virtual-list';
 	import { term, subject, searchQuery, runSearch } from '$lib/stores/filter.js';
 	import { data } from '$lib/stores/filterResult.js';
+	import ClassCard from '../lib/components/ClassCard.svelte';
 
 	/** @type { import('./$types').PageData }*/
 	// export let data;
@@ -29,9 +30,10 @@
 			}}
 		/>
 		<h1 class="font-bold">Dumb names thanks to Oscar!</h1>
-
-		<VirtualList items={$data} let:item>
-			<h1>{item.course_title}</h1>
-		</VirtualList>
+		<div class="w-full h-full bg-white p-5 rounded-2xl drop-shadow-md">
+			<VirtualList items={$data} let:item>
+				<ClassCard title={item.course_title} number={item.course_number} />
+			</VirtualList>
+		</div>
 	</div>
 </div>
