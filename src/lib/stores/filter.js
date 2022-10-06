@@ -13,6 +13,5 @@ export async function runSearch() {
 		)}`
 	);
 	let json = await res.json();
-	console.log(json);
 	data.set(Object.values(json));
 }

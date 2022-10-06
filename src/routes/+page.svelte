@@ -27,7 +27,6 @@
 	<div class="flex flex-col gap-5 w-full p-5">
 		<SearchBar
 			on:search={(e) => {
-				console.log(e.detail);
 				searchQuery.set(e.detail);
 				runSearch();
 			}}
