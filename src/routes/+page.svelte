@@ -8,17 +8,6 @@
 	import { onMount } from 'svelte';
 
 	/** @type { import('./$types').PageData }*/
-	// export let data;
-	// const rows = Object.values(data);
-
-	// $: console.log('$data:', $data);
-
-	// $: {
-	// 	for (let i of $data) {
-	// 		console.log(i.course_title);
-	// 	}
-	// }
-
 	runSearch();
 </script>
 
