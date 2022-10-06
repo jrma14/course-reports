@@ -3,7 +3,7 @@
 	export let number;
 </script>
 
-<a href={`/courses/${title}/${number}`}>
+<a href={`/courses/${number.replace(' ', '-')}`}>
 	<h1 class="font-normal text-3xl">
 		{number}
 	</h1>

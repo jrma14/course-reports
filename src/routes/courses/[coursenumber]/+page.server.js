@@ -5,6 +5,5 @@ import { error, json } from '@sveltejs/kit';
 export async function load({ params }) {
   return {
     courseNumber: params.coursenumber,
-    title: params.coursetitle,
   };
 }
