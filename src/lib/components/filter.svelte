@@ -39,7 +39,7 @@
 </script>
 
 <div
-	class="min-w-1/4 w-1/4 h-full bg-white select-none drop-shadow-md overflow-y-scroll overflow-x-clip"
+	class="min-w-1/3 w-1/3 h-full bg-white select-none drop-shadow-md overflow-y-scroll overflow-x-clip"
 >
 	<div class="text-3xl font-semibold ml-5 mt-3">Term</div>
 	<hr class="mb-5 mr-5 ml-5 mt-1" />

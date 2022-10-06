@@ -1,14 +1,11 @@
 import { json } from '@sveltejs/kit';
-import mysql from 'mysql2/promise';
-import { DATABASE_URL } from '$env/static/private';
+import { connect } from '$lib/db/database.js';
+
 const RES_LIMIT = 20;
 
 /** @type {import ('./$types').RequestHandler} */
 export async function GET({ url }) {
-	const connection = await mysql.createPool({
-		uri: DATABASE_URL,
-		connectionLimit: 10
-	});
+	const connection = await connect();
 	let queryParams = [];
 	let queries = [];
 	let termQuery = 'term = ? ';
