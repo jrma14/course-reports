@@ -96,7 +96,7 @@
 			<Help />
 		</div>
 	</div>
-	<p class="text-xs font-normal ml-5 mt-1 {helpVisible ? 'visible' : 'hidden'}">
+	<p class="text-xs font-normal ml-5 mr-10 mt-1 {helpVisible ? 'visible' : 'hidden'}">
 		Current listings are just the courses that are available this year, so any cat II courses that
 		do not occur this year will not be shown
 	</p>
