@@ -20,9 +20,22 @@
 				runSearch();
 			}}
 		/>
-		<div class="w-full h-[calc(100vh-64px-100px)] bg-white p-5 rounded-2xl drop-shadow-md">
+		<div class="w-full h-[calc(100vh-64px-100px)] bg-white rounded-2xl drop-shadow-md">
+			<div class="h-14 rounded-2xl flex font-bold text-xl pl-5 pt-1 pr-5">
+				<div class="flex flex-grow">
+					<h1 class="mr-10">Course Number</h1>
+					<h1 class="">Course Title</h1>
+				</div>
+				<div class="flex w-[25%] justify-between h-full items-center">
+					<h1>Average Rating</h1>
+					<h1>Average Grade</h1>
+					<h1>Hours/Week</h1>
+				</div>
+			</div>
 			<VirtualList items={$data} let:item>
-				<ClassCard title={item.course_title} number={item.course_number} />
+				<div class="h-24">
+					<ClassCard title={item.course_title} number={item.course_number} />
+				</div>
 			</VirtualList>
 		</div>
 	</div>
