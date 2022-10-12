@@ -17,17 +17,18 @@
 	function updatePills(index, value) {
 		selectedPills[index] = value;
 		//create a string with the values of the selected pills separated by commas
-		let subs = [];
-		let pillString = get(subject);
+		let subFilter = get(subject);
 		for (let i = 0; i < selectedPills.length; i++) {
+			let ind = subFilter.indexOf(subjects[i]);
+			if (ind != -1) {
+				subFilter.splice(ind, 1);
+			}
 			if (selectedPills[i]) {
-				pillString += subjects[i] + ',';
-			} else {
-				pillString = pillString.replaceAll(subjects[i] + ',', '');
+				subFilter.push(subjects[i]);
 			}
 		}
-		subject.set(pillString);
-
+		subject.set(subFilter);
+		console.log(get(subject));
 		// run the search
 		runSearch();
 	}
@@ -49,6 +50,9 @@
 			type="checkbox"
 			on:click={(e) => {
 				e.stopPropagation();
+				for (let i = 0; i < pills.length; i++) {
+					updatePills(i, e.target.checked);
+				}
 			}}
 		/>
 		{subjectText}

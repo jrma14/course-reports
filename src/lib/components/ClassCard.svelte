@@ -4,7 +4,7 @@
 </script>
 
 <a class="h-full flex flex-col items-center" href={`/courses/${number.replace(' ', '-')}`}>
-	<div class="hover:bg-blue-300 rounded-lg p-5 flex w-full h-full items-center mb-auto mt-auto">
+	<div class="hover:bg-blue-50 rounded-lg p-5 flex w-full h-full items-center mb-auto mt-auto">
 		<div class="flex flex-grow">
 			<h1 class="font-bold underline text-3xl mr-10">
 				{number}
