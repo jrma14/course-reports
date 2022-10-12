@@ -50,35 +50,52 @@
 		<Pill text="D Term" size="sm" on:selected={(e) => updateTermPills(3, e.detail)} />
 	</div>
 	<div class="text-3xl font-semibold ml-5 mt-5">Subject</div>
-	<DropDown subjectText="Science" pills={['Physics']} subjects={['PH']} />
+	<DropDown
+		subjectText="Science"
+		pills={[
+			'Biology',
+			'Bioinformatics & Computational Biology',
+			'Chemistry',
+			'Computer Science',
+			'Data Science',
+			'Geology',
+			'Interactive Media & Game Development',
+			'Mathematical Sciences',
+			'Mathematics for Educators',
+			'Masters for Physics Educators',
+			'Neuroscience',
+			'Physics'
+		]}
+		subjects={['BB', 'BCB', 'CH', 'CS', 'DS', 'GE', 'IMGD', 'MA', 'MME', 'MPE', 'NEU', 'PH']}
+	/>
 	<DropDown
 		subjectText="Engineering"
 		pills={[
-			'Aerospace',
-			'Architectural',
-			'Biomedical',
-			'Civil',
-			'Chemical',
-			'Electrical',
-			'Computer',
+			'Aerospace Engineering',
+			'Architectural Engineering',
+			'Biomedical Engineering',
+			'Civil Engineering',
+			'Chemical Engineering',
+			'Electrical & Computer Engineering',
 			'Engineering Science',
 			'Fire Protection',
-			'Mechanical',
-			'Manufacturing',
-			'Materials Science',
-			'Nuclear Science',
-			'Industrial',
-			'Robotics',
-			'Systems'
+			'Mechanical Engineering',
+			'Manufacturing Engineering',
+			'Materials Science & Engineering',
+			'Nuclear Science & Engineering',
+			'Operations & Industrial Engineering',
+			'Robotics Engineering',
+			'Systems Engineering'
 		]}
 		subjects={[
 			'AE',
 			'AREN',
 			'BME',
 			'CE',
-			'CH',
+			'CHE',
 			'ECE',
 			'ECE',
+			'ES',
 			'FP',
 			'ME',
 			'MFE',
@@ -88,6 +105,77 @@
 			'RBE',
 			'SYS'
 		]}
+	/>
+	<DropDown
+		subjectText="Languages"
+		pills={[
+			'Arabic',
+			'Chinese',
+			'English as a Second Language',
+			'German',
+			'English for International Students',
+			'Spanish'
+		]}
+		subjects={['AB', 'CN', '', 'GN', 'ISE', 'SP']}
+	/>
+	<DropDown
+		subjectText="Humanities"
+		pills={[
+			'Art',
+			'English',
+			'History',
+			'Humanities',
+			'International & Global Studies',
+			'Music',
+			'Philosophy',
+			'Religion',
+			'Theatre',
+			'Writing'
+		]}
+		subjects={['AR', 'EN', 'HI', 'HU', 'INTL', 'MU', 'PY', 'RE', 'TH', 'WR']}
+	/>
+	<DropDown
+		subjectText="Social Science"
+		pills={[
+			'Development',
+			'Economics',
+			'Environmental Studies',
+			'Government, Political Science, and Law',
+			'Psychology',
+			'System Dynamics',
+			'Sociology',
+			'Social Science',
+			'Society-Technology Studies'
+		]}
+		subjects={['DEV', 'ECON', 'ENV', 'GOV', 'PSY', 'SD', 'SOC', 'SS', 'STS']}
+	/>
+	<DropDown
+		subjectText="Business"
+		pills={[
+			'Business',
+			'Entrepreneurship',
+			'Finance',
+			'Management Information Systems',
+			'Marketing',
+			'Organizational Behavior & Change'
+		]}
+		subjects={['BUS', 'ETR', 'FIN', 'MIS', 'MKT', 'OBC']}
+	/>
+	<DropDown
+		subjectText="Other"
+		pills={[
+			'Air Science',
+			'Co-op',
+			'First Year',
+			'Interdisciplinary',
+			'Intergrative & Global Studies',
+			'Military Leadership',
+			'Other',
+			'Project Center',
+			'Physical Education',
+			'STEM for Educators'
+		]}
+		subjects={['AS', 'CP', 'FY', 'ID', 'IGS', 'ML', 'OT', 'PC', 'PE', 'SEME']}
 	/>
 	<hr class="mb-5 mr-5 ml-5 mt-1" />
 	<!-- <div class="text-3xl font-semibold ml-5 mt-5 flex w-full">
