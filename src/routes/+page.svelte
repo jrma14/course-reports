@@ -21,7 +21,7 @@
 			}}
 		/>
 		<div class="w-full h-[calc(100vh-64px-100px)] bg-white rounded-2xl drop-shadow-md">
-			<div class="h-14 rounded-2xl flex font-bold text-xl pl-5 pt-1 pr-5">
+			<div class="h-14 rounded-2xl flex font-bold text-xl pl-5 pt-3 pb-3 pr-5">
 				<div class="flex flex-grow">
 					<h1 class="mr-10">Course Number</h1>
 					<h1 class="">Course Title</h1>
