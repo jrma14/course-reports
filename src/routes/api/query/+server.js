@@ -53,8 +53,8 @@ export async function GET({ url }) {
 	if (url.searchParams.get('offset').length > 0) {
 		search += ` OFFSET ${url.searchParams.get('offset')}`
 	}
-	console.log(search);
-	console.log(queryParams);
+	// console.log(search);
+	// console.log(queryParams);
 	// console.log(search)
 	// console.log(queryParams)
 	let [rows] = await connection.execute(search, queryParams);

@@ -9,11 +9,11 @@
 
 	// dispatch('search', searchQuery);
 
-	const uncheckedStyles = `flex justify-center items-center rounded-full bg-base-100 ${
-		size === 'sm' ? 'w-20' : 'w-40 h-8'
+	const uncheckedStyles = `flex justify-center p-3 items-center text-center rounded-full bg-base-100 ${
+		size === 'sm' ? 'w-20' : 'w-48 h-16'
 	} mr-auto ml-auto hover:cursor-pointer hover:bg-primary/50`;
-	const checkedStyles = `flex justify-center items-center rounded-full text-white bg-primary ${
-		size === 'sm' ? 'w-20' : 'w-40 h-8'
+	const checkedStyles = `flex justify-center p-3 items-center rounded-full text-center text-white bg-primary ${
+		size === 'sm' ? 'w-20' : 'w-48 h-16'
 	} mr-auto ml-auto hover:cursor-pointer`;
 	let pillClasses = uncheckedStyles;
 
