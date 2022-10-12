@@ -50,6 +50,9 @@ export async function GET({ url }) {
 
 	//add limit to query
 	search += ` LIMIT ${RES_LIMIT}`;
+	if (url.searchParams.get('offset').length > 0) {
+		search += ` OFFSET ${url.searchParams.get('offset')}`
+	}
 	// console.log(search);
 
 	// console.log(search)
