@@ -40,7 +40,7 @@ export async function GET({ url }) {
 		'SELECT course_title, course_number, subject FROM course_overviews GROUP BY course_title,course_number,subject';
 	// 'SELECT course_title, course_number, subject FROM courses  GROUP BY course_title, course_number, subject';
 	// console.log(queryParams.length)
-	console.log(search);
+	// console.log(search);
 	if (queryParams.length > 0) {
 		search =
 			'SELECT course_title, course_number, subject FROM course_overviews WHERE ' +
@@ -50,11 +50,11 @@ export async function GET({ url }) {
 
 	//add limit to query
 	search += ` LIMIT ${RES_LIMIT}`;
-	console.log(search);
+	// console.log(search);
 
 	// console.log(search)
 	// console.log(queryParams)
 	let [rows] = await connection.execute(search, queryParams);
-	console.log(rows)
+	// console.log(rows)
 	return json(rows);
 }
