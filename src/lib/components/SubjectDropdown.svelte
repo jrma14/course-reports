@@ -1,7 +1,6 @@
 <script>
 	import Pill from './Pill.svelte';
-	import { term, subject, searchQuery, runSearch } from '$lib/stores/filter.js';
-	import { get } from 'svelte/store';
+	import { filters } from '$lib/stores/filter.js';
 
 	export let subjectText;
 	export let isOpen = false;
@@ -17,7 +16,7 @@
 	function updatePills(index, value) {
 		selectedPills[index] = value;
 		//create a string with the values of the selected pills separated by commas
-		let subFilter = get(subject);
+		let subFilter = $filters.subjects;
 		for (let i = 0; i < selectedPills.length; i++) {
 			let ind = subFilter.indexOf(subjects[i]);
 			if (ind != -1) {
@@ -27,10 +26,13 @@
 				subFilter.push(subjects[i]);
 			}
 		}
-		subject.set(subFilter);
-		console.log(get(subject));
+		// $filters.subjects = subFilter;
+		$filters = $filters;
+		// subject.set(subFilter);
+		// console.log($filters.subjects);
+
 		// run the search
-		runSearch();
+		// runSearch();
 	}
 
 	$: dropdownClass = isOpen ? 'collapse-open' : 'collapse-close';

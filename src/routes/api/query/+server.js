@@ -53,11 +53,30 @@ export async function GET({ url }) {
 	if (url.searchParams.get('offset').length > 0) {
 		search += ` OFFSET ${url.searchParams.get('offset')}`
 	}
+	// let metaParams = []
+	// for (const [key, value] of url.searchParams) {
+	// 	if (key === 'offset') {
+	// 		metaParams.push(`offset=${parseInt(url.searchParams.get('offset')) + RES_LIMIT}`)
+	// 	} else {
+	// 		metaParams.push(`${key}=${value}`)
+	// 	}
+	// .map(param => {
+	// 	console.log(param)
+	// })
+	let __metadata = {
+		'offsets': {
+			'next': parseInt(url.searchParams.get('offset')) + RES_LIMIT,
+			'current': parseInt(url.searchParams.get('offset')),
+			'previous': parseInt(url.searchParams.get('offset')) - RES_LIMIT > 0 ? parseInt(url.searchParams.get('offset')) - RES_LIMIT : 0
+		}
+	}
+	// console.log(url)
+	// console.log(__metadata)
 	// console.log(search);
 	// console.log(queryParams);
 	// console.log(search)
 	// console.log(queryParams)
 	let [rows] = await connection.execute(search, queryParams);
 	// console.log(rows)
-	return json(rows);
+	return json({ '__metadata': __metadata, 'courses': rows });
 }
