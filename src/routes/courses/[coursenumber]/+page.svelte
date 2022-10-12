@@ -79,7 +79,9 @@
 				>
 					<div class="flex flex-col w-full h-full justify-center items-center">
 						<h1 class="text-xl">Average Rating</h1>
-						<h1 class="text-4xl">{avgRating}/5</h1>
+						<h1 class="text-4xl">
+							{avgRating}<span class="text-xl font-normal">/5</span>
+						</h1>
 					</div>
 				</div>
 				<div bind:this={el} class="chart" />
