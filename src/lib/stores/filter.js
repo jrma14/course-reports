@@ -13,6 +13,7 @@ export async function runSearch() {
 			subject
 		).join(',')}&offset=${get(offset)}`
 	);
+	console.log(get(subject).join(','));
 	let json = await res.json();
 	data.set(Object.values(json));
 }

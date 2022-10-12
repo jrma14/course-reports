@@ -28,6 +28,7 @@
 			}
 		}
 		subject.set(subFilter);
+		console.log(get(subject));
 		// run the search
 		runSearch();
 	}

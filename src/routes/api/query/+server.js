@@ -25,14 +25,14 @@ export async function GET({ url }) {
 		queryParams.push(`%${url.searchParams.get('searchQuery')}%`);
 		queries.push(sQuery);
 	}
-	let subjectQuery = 'subject LIKE ? ';
+	let subjectQuery = 'subject_abbreviation LIKE ? ';
 	if (url.searchParams.get('subjects').length > 0) {
 		let param = url.searchParams.get('subjects');
 		let subjects = param.split(',');
 		let subjectsQuery = [];
 		for (let subject of subjects) {
 			subjectsQuery.push(subjectQuery);
-			queryParams.push(subject);
+			queryParams.push(`%${subject}%`);
 		}
 		queries.push(`(${subjectsQuery.join('OR ')}) `);
 	}
@@ -53,8 +53,8 @@ export async function GET({ url }) {
 	if (url.searchParams.get('offset').length > 0) {
 		search += ` OFFSET ${url.searchParams.get('offset')}`
 	}
-	// console.log(search);
-
+	console.log(search);
+	console.log(queryParams);
 	// console.log(search)
 	// console.log(queryParams)
 	let [rows] = await connection.execute(search, queryParams);
