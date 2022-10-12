@@ -84,24 +84,11 @@
 		//calculate margin
 		//min margin is 10px
 		//estimate margin to be 10px
-		let totalMargin = 10 * profs.length;
+		let totalMargin = 5 * profs.length;
 		let barHeight = Math.floor(parentHeight - totalMargin) / profs.length;
 
-		let margin = 10;
+		let margin = 5;
 		//recalculate bar height to account for margin
-
-		// // create scale functions
-		// var xScale = d3.scaleLinear().domain([0, 5]).range([0, 500]);
-
-		// var yScale = d3.scaleLinear().domain([0, profs.length]).range([0, parentHeight]);
-		// //create SVG element
-		// var svg = d3.select(el).append('svg').attr('width', 600).attr('height', parentHeight);
-
-		// //define X axis
-		// var xAxis = d3.svg.axis().scale(xScale).orient('bottom').ticks(5);
-
-		// //define Y axis
-		// var yAxis = d3.svg.axis().scale(yScale).orient('left').ticks(5);
 
 		d3.select(el)
 			.selectAll('div')
@@ -119,21 +106,31 @@
 			})
 			.style('max-height', (d) => {
 				//calc height based on number of professors and parent height
-				return '30px';
+				return '70px';
 			})
 			.style('background-color', (d) => {
 				return profColors[d];
 			})
+			.style('border-radius', '0px 10px 10px 0px')
 			.style('margin-bottom', (d) => {
+				//if last element, no margin
+				if (d == profs[profs.length - 1]) {
+					return '0px';
+				}
 				return margin + 'px';
 			})
 			.text((d) => {
-				return d + ' - ' + profAvgs[d]['avgRating'] + '/5 (n=' + profAvgs[d]['numStudents'] + ')';
+				return d;
 			})
 			.style('min', 'white')
 			//left align text
 			.style('text-align', 'left')
-			//
+			.style('color', 'white')
+			// add black stroke to the text
+			.style('text-shadow', '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black')
+			// center the text vertically
+			.style('display', 'flex')
+			.style('align-items', 'center')
 			.style('font-size', (d) => {
 				return '15px';
 			});
@@ -142,7 +139,7 @@
 
 <div class="flex flex-col h-full font-bold text-3xl w-full">
 	<OverallHeader title={courseData[0].course_title} number={courseData[0].course_number} />
-	<div id="stats" class="w-full h-[70%] flex flex-row">
+	<div id="stats" class="w-full h-[90%] flex flex-row">
 		<div id="left-holder" class="w-[38%] m-3 bg-blue-400 h-full flex flex-col">
 			<!-- Rating Box -->
 			<div class="rounded-md h-full bg-green-400 text-center m-3">
