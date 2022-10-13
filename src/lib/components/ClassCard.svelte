@@ -45,7 +45,8 @@
 				{course['course_title'].replaceAll('-', ' ').trim()}
 			</h1>
 		</div>
-		<div class="flex w-1/4 justify-between h-full items-center">
+		<!-- <div class="flex w-1/4 justify-between h-full items-center"> -->
+		<div class="w-1/4 grid grid-cols-3">
 			<div
 				class="p-5 w-20 h-1/2 {getRatingColor(
 					course['overall_average_rating']
