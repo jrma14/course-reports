@@ -12,20 +12,6 @@
 	let el;
 	// replace course number - with space
 
-	onMount(() => {
-		d3.select(el)
-			.selectAll('div')
-			.data(exData)
-			.enter()
-			.append('div')
-			.style('width', function (d) {
-				return d + 'px';
-			})
-			.text(function (d) {
-				return d;
-			});
-	});
-
 	let avgRating = 0;
 	let ratingSum = 0;
 	let ratingCount = 0;
@@ -106,18 +92,6 @@
 
 	// console.log(profGradeVsHrs);
 	onMount(() => {
-		d3.select(el)
-			.selectAll('div')
-			.data(exData)
-			.enter()
-			.append('div')
-			.style('width', function (d) {
-				return d + 'px';
-			})
-			.text(function (d) {
-				return d;
-			});
-
 		const svg = d3
 			.select('#my_dataviz')
 			.append('svg')
