@@ -50,6 +50,7 @@
 		<input
 			class="checkbox checkbox-sm mr-2 checkbox-primary"
 			type="checkbox"
+			aria-label="Select all"
 			on:click={(e) => {
 				e.stopPropagation();
 				for (let i = 0; i < pills.length; i++) {
