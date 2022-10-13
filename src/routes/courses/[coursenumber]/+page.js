@@ -6,5 +6,8 @@ import { PUBLIC_URL } from '$env/static/public';
 export async function load({ params, fetch }) {
   // make fetch to get data based on params
   let data = await fetch(`${PUBLIC_URL}/api/query/${params.coursenumber}`);
-  return await data.json();
+  const json = await data.json();
+  if (json.length)
+    return json
+  throw error(404, 'Course Not found');
 }

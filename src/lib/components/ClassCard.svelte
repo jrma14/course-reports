@@ -1,33 +1,71 @@
 <script>
-	export let title;
-	export let number;
+	export let course;
+
+	const getRatingColor = (rating) => {
+		if (rating >= 4.7) {
+			return 'bg-success';
+		} else if (rating >= 4 && rating < 4.7) {
+			return 'bg-warning';
+		} else {
+			return 'bg-error';
+		}
+	};
+
+	const getGradeColor = (grade) => {
+		if (grade >= 90) {
+			return 'bg-success';
+		} else if (grade >= 80 && grade < 90) {
+			return 'bg-warning';
+		} else {
+			return 'bg-error';
+		}
+	};
+
+	const getWorkColor = (work) => {
+		if (work <= 8) {
+			return 'bg-success';
+		} else if (work >= 9 && work < 16) {
+			return 'bg-warning';
+		} else {
+			return 'bg-error';
+		}
+	};
 </script>
 
-<a class="h-full flex flex-col items-center" href={`/courses/${number.replace(' ', '-')}`}>
+<a
+	class="h-full flex flex-col items-center"
+	href={`/courses/${(course['course_number'] ?? '').replaceAll(' ', '-')}`}
+>
 	<div class="hover:bg-blue-50 rounded-lg p-5 flex w-full h-full items-center mb-auto mt-auto">
 		<div class="flex flex-grow">
 			<h1 class="font-bold underline text-3xl mr-10">
-				{number}
+				{course['course_number']}
 			</h1>
 			<h1 class="font-normal ml-10 text-3xl mr-5">
-				{title}
+				{course['course_title'].replaceAll('-', ' ').trim()}
 			</h1>
 		</div>
-		<div class="flex w-[25%] justify-between h-full items-center">
+		<div class="flex w-1/4 justify-between h-full items-center">
 			<div
-				class="p-5 w-20 h-1/2 bg-success rounded-xl flex justify-center items-center font-semibold text-2xl"
+				class="p-5 w-20 h-1/2 {getRatingColor(
+					course['overall_average_rating']
+				)} rounded-xl flex justify-center items-center font-semibold text-2xl"
 			>
-				4.2
+				{Math.round(course['overall_average_rating'] * 10) / 10}
 			</div>
 			<div
-				class="p-5 w-10 h-10 bg-error rounded-xl flex justify-center items-center font-semibold text-2xl"
+				class="p-5 w-20 h-10 {getGradeColor(
+					course['overall_average_grade']
+				)} rounded-xl flex justify-center items-center font-semibold text-2xl"
 			>
-				A
+				{Math.round(course['overall_average_grade'])}%
 			</div>
 			<div
-				class="p-5 h-10 w-26 bg-warning rounded-xl flex justify-center items-center font-semibold text-2xl"
+				class="p-5 h-10 w-26 {getWorkColor(
+					course['overall_average_work']
+				)} rounded-xl flex justify-center items-center font-semibold text-2xl"
 			>
-				13-15
+				{Math.round(course['overall_average_work'])}
 			</div>
 		</div>
 	</div>

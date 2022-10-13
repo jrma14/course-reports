@@ -1,5 +1,5 @@
 <script>
-	import OverallHeader from './components/OverallHeader.svelte';
+	import OverallHeader from '$lib/components/OverallHeader.svelte';
 	import { onMount } from 'svelte';
 
 	import * as d3 from 'd3';
