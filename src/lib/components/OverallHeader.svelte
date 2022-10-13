@@ -2,12 +2,11 @@
 	export let title, number;
 </script>
 
-<div class="flex flex-col items-baseline w-full m-0">
+<div class="flex flex-col items-baseline w-full m-0 mb-10">
 	<div class="flex flex-row items-baseline gap-5">
 		<h1 class="text-5xl font-bold mt-3 ml-3">{title}</h1>
 		<h1 class="text-2xl font-light">{number}</h1>
 	</div>
 	<!-- horizontal line -->
-	<div class="w-full h-1 bg-gray-300 my-1" />
+	<div class="w-full h-[1px] bg-gray-300 my-2" />
 </div>
-<h1 class="text-center w-full text-5xl">Overall</h1>

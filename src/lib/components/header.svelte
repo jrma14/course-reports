@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 </script>
 
-<div class="w-full h-16 bg-primary flex text-white items-center text-xl">
+<div class="w-full h-16 bg-primary flex flex-row text-white items-center text-xl">
 	<Logo />
 	<a href="/" class="ml-5 {$page.url.pathname === '/' ? 'underline' : ''}">Courses</a>
 	<!-- TODO -->

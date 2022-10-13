@@ -228,7 +228,7 @@
 			<div class="rounded-md h-[70%] text-center mb-3">
 				<div
 					id="rating-box"
-					class="flex flex-col w-full h-full bg-white rounded-2xl drop-shadow-md"
+					class="flex flex-col w-full h-full bg-white rounded-2xl drop-shadow-md p-5"
 				>
 					<div class="flex flex-col w-full h-full justify-center items-center">
 						<h1 class="text-xl font-light text-gray-500">Average Rating</h1>
@@ -264,12 +264,12 @@
 		<div class="w-[62%] m-3 h-full bg-white rounded-2xl text-center p-5">
 			<div class="flex mb-5">
 				<div class="w-1/2">
-					<p class="font-normal">Expected Grade</p>
-					<h1>{Math.round(data[0].overall_average_grade) + 5}%</h1>
+					<p class="text-gray-500 font-light text-xl">Expected Grade</p>
+					<h1 class="text-7xl">{Math.round(data[0].overall_average_grade) + 5}%</h1>
 				</div>
 				<div class="w-1/2">
-					<p class="font-normal">Hours/Week</p>
-					<h1>{Math.round(data[0].overall_average_work)}</h1>
+					<p class="text-gray-500 font-light text-xl">Hours/Week</p>
+					<h1 class="text-7xl">{Math.round(data[0].overall_average_work)}</h1>
 				</div>
 			</div>
 			Grade Vs Hours
