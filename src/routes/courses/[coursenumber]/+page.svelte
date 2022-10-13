@@ -2,6 +2,7 @@
 	import OverallHeader from './components/OverallHeader.svelte';
 	import { onMount } from 'svelte';
 	import { Scatter } from 'svelte-chartjs';
+	import Chart from './components/Chart.svelte';
 	import * as d3 from 'd3';
 
 	import {
@@ -19,9 +20,6 @@
 
 	export let data;
 	const courseData = Object.values(data);
-
-	let el;
-	// replace course number - with space
 
 	let avgRating = 0;
 	let ratingSum = 0;
@@ -189,35 +187,77 @@
 		scatterData.datasets[0].backgroundColor.push(profColors[prof]);
 		scatterData.datasets[0].borderColor.push(profColors[prof]);
 	}
+
+	let barChartData = {
+		labels: [],
+		datasets: [
+			{
+				label: 'Average',
+				data: [],
+				backgroundColor: [],
+				borderWidth: 2,
+				borderColor: [],
+				borderRadius: 5
+			}
+		]
+	};
+
+	for (let prof in profs) {
+		barChartData.labels.push(profs[prof]);
+		barChartData.datasets[0].data.push(profAvgs[profs[prof]]['avgRating']);
+		barChartData.datasets[0].backgroundColor.push(profColors[profs[prof]]);
+		barChartData.datasets[0].borderColor.push(profColors[profs[prof]]);
+	}
+
+	let numReviewsData = [];
+	for (let prof in profs) {
+		numReviewsData.push(profAvgs[profs[prof]]['numStudents']);
+	}
+
+	let totalStudents = 0;
+	for (let prof in profs) {
+		totalStudents += profAvgs[profs[prof]]['numStudents'];
+	}
 </script>
 
-<div class="flex flex-col h-full font-bold text-3xl w-full">
+<div class="flex flex-col h-[100vw - 64px] font-bold text-3xl w-full">
 	<OverallHeader title={courseData[0].course_title} number={courseData[0].course_number} />
-	<div id="stats" class="w-full h-[90%] flex flex-row">
-		<div id="left-holder" class="w-[38%] m-3 bg-blue-400 h-full flex flex-col">
+	<div id="stats" class="w-full h-[70%] flex flex-row">
+		<div id="left-holder" class="w-[38%] h-full flex flex-col m-3">
 			<!-- Rating Box -->
-			<div class="rounded-md h-full bg-green-400 text-center m-3">
+			<div class="rounded-md h-[70%] text-center mb-3">
 				<div
 					id="rating-box"
-					class="flex flex-row w-full h-[30%] bg-white rounded-2xl drop-shadow-md"
+					class="flex flex-col w-full h-full bg-white rounded-2xl drop-shadow-md"
 				>
 					<div class="flex flex-col w-full h-full justify-center items-center">
-						<h1 class="text-xl">Average Rating</h1>
-						<h1 class="text-4xl">
+						<h1 class="text-xl font-light text-gray-500">Average Rating</h1>
+						<h1 class="text-7xl">
 							{avgRating}<span class="text-xl font-normal">/5</span>
 						</h1>
 					</div>
-				</div>
-
-				<div class="h-[70%] bg-white flex flex-col justify-center">
-					<div bind:this={el} class="chart" />
+					<Chart data={barChartData} {numReviewsData} />
 				</div>
 			</div>
-			<div id="rev-prof-holder" class="w-full h-[40%] flex flex-row mb-3">
+			<div id="rev-prof-holder" class="w-full h-[30%] flex flex-row">
 				<!-- num reviews -->
-				<div class="rounded-md w-[50%] bg-purple-400 text-center ml-3">Rev#</div>
+				<div
+					class="rounded-md w-[50%] h-full bg-white text-center text-7xl drop-shadow-md flex flex-col justify-center"
+				>
+					<div>
+						{totalStudents}
+					</div>
+					<div class="text-xl m-3 font-light text-gray-500">Respondents</div>
+				</div>
 				<!-- num professors -->
-				<div class="rounded-md w-[50%] bg-cyan-400 text-center ml-3 mr-3">Prof#</div>
+				<div
+					class="rounded-md w-[50%] ml-3 h-full bg-white text-center drop-shadow-md flex flex-col justify-center"
+				>
+					<div class="text-7xl">
+						{profs.length}
+					</div>
+					<div class="text-xl m-3 font-light text-gray-500">Professors</div>
+				</div>
 			</div>
 		</div>
 		<!-- Expected grade / hrs per week section -->
