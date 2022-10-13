@@ -14,7 +14,7 @@
 		CategoryScale,
 		LinearScale,
 		PointElement
-	} from 'chart.js';
+	} from 'chart.js/dist/chart.mjs';
 
 	ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
 

@@ -12,7 +12,7 @@
 		CategoryScale,
 		LinearScale,
 		layouts
-	} from 'chart.js';
+	} from 'chart.js/dist/chart.mjs';
 
 	Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 </script>
