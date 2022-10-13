@@ -59,7 +59,7 @@
 					course['overall_average_grade']
 				)} rounded-xl flex justify-center items-center font-semibold text-2xl"
 			>
-				{Math.round(course['overall_average_grade'])}%
+				{Math.round(course['overall_average_grade']) + 5}%
 			</div>
 			<div
 				class="p-5 h-10 w-26 {getWorkColor(
