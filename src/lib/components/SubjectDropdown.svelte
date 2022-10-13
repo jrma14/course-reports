@@ -26,8 +26,8 @@
 				subFilter.push(subjects[i]);
 			}
 		}
-		// $filters.subjects = subFilter;
-		$filters = $filters;
+		$filters.subjects = subFilter;
+		// $filters = $filters;
 		// subject.set(subFilter);
 		// console.log($filters.subjects);
 
@@ -53,8 +53,19 @@
 			on:click={(e) => {
 				e.stopPropagation();
 				for (let i = 0; i < pills.length; i++) {
-					updatePills(i, e.target.checked);
+					selectedPills[i] = e.target.checked;
 				}
+				let subFilter = $filters.subjects;
+				for (let i = 0; i < selectedPills.length; i++) {
+					let ind = subFilter.indexOf(subjects[i]);
+					if (ind != -1) {
+						subFilter.splice(ind, 1);
+					}
+					if (selectedPills[i]) {
+						subFilter.push(subjects[i]);
+					}
+				}
+				$filters.subjects = subFilter;
 			}}
 		/>
 		{subjectText}
