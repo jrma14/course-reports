@@ -9,7 +9,7 @@
 			case 404:
 				return 'Page not found';
 			case 500:
-				return 'Internal server error';
+				return 'Internal server error:\n' + $page.error.message;
 			default:
 				return 'Unknown error';
 		}
