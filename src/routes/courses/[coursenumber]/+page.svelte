@@ -3,13 +3,28 @@
 	import { onMount } from 'svelte';
 
 	import * as d3 from 'd3';
+	import { scaleLinear } from 'd3-scale';
+
 	import Logo from '../../../lib/components/logo.svelte';
 	export let data;
 	const courseData = Object.values(data);
-	var exData = [30, 86, 168, 281, 303, 365];
 
 	let el;
 	// replace course number - with space
+
+	onMount(() => {
+		d3.select(el)
+			.selectAll('div')
+			.data(exData)
+			.enter()
+			.append('div')
+			.style('width', function (d) {
+				return d + 'px';
+			})
+			.text(function (d) {
+				return d;
+			});
+	});
 
 	let avgRating = 0;
 	let ratingSum = 0;
@@ -46,6 +61,7 @@
 		);
 	}
 
+	console.log(profAvgs);
 	avgRating = ratingSum / ratingCount;
 	//round to 2 decimal places
 	avgRating = Math.round((avgRating + Number.EPSILON) * 100) / 100;
@@ -172,11 +188,95 @@
 			.attr('y', height + margin.top + 20)
 			.text('Hours/Week');
 	});
+
+	//update profAvgs to have the average rating
+	for (let prof in profAvgs) {
+		profAvgs[prof]['avgRating'] /= profAvgs[prof]['numRatings'];
+		profAvgs[prof]['avgRating'] =
+			Math.round((profAvgs[prof]['avgRating'] + Number.EPSILON) * 100) / 100;
+	}
+	// console.log(profAvgs);
+
+	let profs = Object.keys(profAvgs);
+	profs.sort((a, b) => {
+		return -1 * (profAvgs[b]['avgRating'] - profAvgs[a]['avgRating']);
+	});
+	//make a map of profs to a color
+	let profColors = {};
+	let colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+	for (let i = 0; i < profs.length; i++) {
+		profColors[profs[i]] = colorScale(i);
+	}
+
+	onMount(() => {
+		const xTicks = [0, 1, 2, 3, 4, 5];
+		const yTicks = profs;
+		const padding = { top: 20, right: 15, bottom: 20, left: 25 };
+		let width = el.parentElement.clientWidth;
+		let height = el.parentElement.clientHeight;
+		// get bounding box height
+		let elParent = el.parentElement;
+		let parentHeight = elParent.getBoundingClientRect().height;
+		console.log(parentHeight);
+		//calculate margin
+		//min margin is 10px
+		//estimate margin to be 10px
+		let totalMargin = 5 * profs.length;
+		let barHeight = Math.floor(parentHeight - totalMargin) / profs.length;
+
+		let margin = 5;
+		//recalculate bar height to account for margin
+
+		d3.select(el)
+			.selectAll('div')
+			.data(profs)
+			.enter()
+			.append('div')
+			.attr('class', 'bar')
+			.style('width', (d) => {
+				//calc width based on avg rating and parent width
+				return (profAvgs[d]['avgRating'] / 5) * el.getBoundingClientRect().width + 'px';
+			})
+			.style('height', (d) => {
+				//calc height based on number of professors and parent height
+				return barHeight + 'px';
+			})
+			.style('max-height', (d) => {
+				//calc height based on number of professors and parent height
+				return '70px';
+			})
+			.style('background-color', (d) => {
+				return profColors[d];
+			})
+			.style('border-radius', '0px 10px 10px 0px')
+			.style('margin-bottom', (d) => {
+				//if last element, no margin
+				if (d == profs[profs.length - 1]) {
+					return '0px';
+				}
+				return margin + 'px';
+			})
+			.text((d) => {
+				return d;
+			})
+			.style('min', 'white')
+			//left align text
+			.style('text-align', 'left')
+			.style('color', 'white')
+			// add black stroke to the text
+			.style('text-shadow', '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black')
+			// center the text vertically
+			.style('display', 'flex')
+			.style('align-items', 'center')
+			.style('font-size', (d) => {
+				return '15px';
+			});
+	});
 </script>
 
 <div class="flex flex-col h-full font-bold text-3xl w-full">
 	<OverallHeader title={courseData[0].course_title} number={courseData[0].course_number} />
-	<div id="stats" class="w-full h-[60%] flex flex-row">
+	<div id="stats" class="w-full h-[90%] flex flex-row">
 		<div id="left-holder" class="w-[38%] m-3 bg-blue-400 h-full flex flex-col">
 			<!-- Rating Box -->
 			<div class="rounded-md h-full bg-green-400 text-center m-3">
@@ -191,7 +291,10 @@
 						</h1>
 					</div>
 				</div>
-				<div bind:this={el} class="chart" />
+
+				<div class="h-[70%] bg-white flex flex-col justify-center">
+					<div bind:this={el} class="chart" />
+				</div>
 			</div>
 			<div id="rev-prof-holder" class="w-full h-[40%] flex flex-row mb-3">
 				<!-- num reviews -->

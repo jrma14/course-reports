@@ -2,7 +2,7 @@
 	import Help from './helpoutline.svelte';
 	import DropDown from './SubjectDropdown.svelte';
 	import Pill from './Pill.svelte';
-	import { term, subject, searchQuery, runSearch } from '$lib/stores/filter.js';
+	import { filters } from '$lib/stores/filter.js';
 
 	let termPills = [false, false, false, false];
 
@@ -28,8 +28,10 @@
 		if (termString[termString.length - 1] === ',') {
 			termString = termString.slice(0, -1);
 		}
-		term.set(termString);
-		runSearch();
+
+		$filters.terms = termString;
+		// term.set(termString);
+		// runSearch();
 		// termPills = [...termPills];
 	}
 
