@@ -37,15 +37,14 @@ export async function GET({ url }) {
 		queries.push(`(${subjectsQuery.join('OR ')}) `);
 	}
 	let search =
-		'SELECT course_title, course_number, subject FROM course_overviews GROUP BY course_title,course_number,subject';
+		'SELECT course_title, course_number, subject, overall_average_rating, overall_average_grade, overall_average_work FROM course_overviews';
 	// 'SELECT course_title, course_number, subject FROM courses  GROUP BY course_title, course_number, subject';
 	// console.log(queryParams.length)
 	// console.log(search);
 	if (queryParams.length > 0) {
 		search =
-			'SELECT course_title, course_number, subject FROM course_overviews WHERE ' +
-			queries.join('AND ') +
-			'GROUP BY course_number, course_title, subject';
+			'SELECT course_title, course_number, subject, overall_average_rating, overall_average_grade, overall_average_work FROM course_overviews WHERE ' +
+			queries.join('AND ');
 	}
 
 	//add limit to query

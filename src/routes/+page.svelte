@@ -53,29 +53,28 @@
 		<SearchBar
 			on:search={(e) => {
 				$filters.searchQuery = e.detail;
-				// searchQuery.set(e.detail);
-				// runSearch();
 			}}
 		/>
-		<p>{listStart}-{listEnd}</p>
 		<div class="w-full h-[calc(100vh-64px-100px)] bg-white rounded-2xl drop-shadow-md">
-			<div class="h-14 rounded-2xl flex font-bold text-xl pl-5 pt-3 pb-3 pr-5">
+			<div class="h-14 2xl flex font-bold text-xl pl-5 pt-3 pb-2 pr-5 border-b-2">
 				<div class="flex flex-grow">
 					<h1 class="mr-10">Course Number</h1>
 					<h1 class="">Course Title</h1>
 				</div>
-				<div class="flex w-[25%] justify-between h-full items-center">
-					<h1>Average Rating</h1>
-					<h1>Average Grade</h1>
-					<h1>Hours/Week</h1>
+				<div class="w-1/4 grid grid-cols-3 justify-items-center">
+					<h1>Rating</h1>
+					<h1>Grade</h1>
+					<h1>Hours</h1>
 				</div>
 			</div>
 			{#if courseData.length}
-				<VirtualList items={courseData} bind:start={listStart} bind:end={listEnd} let:item>
-					<div class="h-24">
-						<ClassCard title={item.course_title} number={item.course_number} />
-					</div>
-				</VirtualList>
+				<div class="h-[calc(100%-56px)]">
+					<VirtualList items={courseData} bind:start={listStart} bind:end={listEnd} let:item>
+						<div class="h-24">
+							<ClassCard course={item} />
+						</div>
+					</VirtualList>
+				</div>
 			{/if}
 		</div>
 	</div>

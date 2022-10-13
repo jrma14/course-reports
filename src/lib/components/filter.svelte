@@ -31,6 +31,7 @@
 
 		$filters.terms = termString;
 		// term.set(termString);
+		console.log('setting classes');
 		// runSearch();
 		// termPills = [...termPills];
 	}
