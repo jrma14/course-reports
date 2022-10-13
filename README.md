@@ -2,7 +2,7 @@
 Project Link: https://course-reports.vercel.app/
 
 We created a course reports application which is used to view course report data.
-Currently, WPI uses OSCAR to view this data but it is not very user friendly.
+Currently, WPI uses [OSCAR](https://oscar.wpi.edu/) to view this data but it is not very user friendly.
 We added several features to the app to make it more user friendly and easier to use.
 
 ## Features
@@ -13,13 +13,13 @@ We added several features to the app to make it more user friendly and easier to
 
 ## Technologies Used
 - **SvelteKit** - We used SvelteKit to create the frontend of the application
-- **PlanetScale** - We used PlanetScale to create the database for the application
+- **PlanetScale** - We used PlanetScale to host the MySQL database for the application
 - **Vercel** - We used Vercel to host the application
-- **MySQL** - We used MySQL to create the database for the application
+- **MySQL** - We used MySQL the database for the application
 - **Chart.js** - We used Chart.js to create the graphs for the application
 - **GitHub** - We used GitHub to manage our code
 - **TailwindCSS** - We used TailwindCSS to style the application
-- **DaisyUI** - We used DaisyUI to style the application
+- **DaisyUI** - We used DaisyUI to provided prebuild components
 - **Figma** - We used Figma to create the mockups for the application
 
 ## Challenges
