@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { connect } from '$lib/db/database.js';
 
-const RES_LIMIT = 20;
+const RES_LIMIT = 50;
 
 /** @type {import ('./$types').RequestHandler} */
 export async function GET({ url }) {
