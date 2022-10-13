@@ -11,3 +11,5 @@ export async function load({ params, fetch }) {
     return json
   throw error(404, 'Course Not found');
 }
+
+export const ssr = false
