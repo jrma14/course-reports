@@ -57,4 +57,4 @@ We added several features to the app to make it more user friendly and easier to
 - Helped refactor the db to use our new schemas and tables
 - Figma Mockups
 
-Video Link:
+Video Link: https://www.youtube.com/watch?v=YgN_C7gajE8
