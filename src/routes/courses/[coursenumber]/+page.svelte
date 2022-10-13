@@ -88,8 +88,9 @@
 		sum += parseInt(course.course_report_data.misc.expectedGrade.scoreBreakdown.fourStar) * 60;
 		return (
 			sum /
-			(course.course_report_data.misc.expectedGrade.surveySize -
-				parseInt(course.course_report_data.misc.expectedGrade.scoreBreakdown.fiveStar))
+				(course.course_report_data.misc.expectedGrade.surveySize -
+					parseInt(course.course_report_data.misc.expectedGrade.scoreBreakdown.fiveStar)) +
+			5
 		);
 	}
 
