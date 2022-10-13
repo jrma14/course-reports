@@ -239,10 +239,10 @@
 					<Chart data={barChartData} {numReviewsData} />
 				</div>
 			</div>
-			<div id="rev-prof-holder" class="w-full h-[30%] flex flex-row">
+			<div id="rev-prof-holder" class="w-full h-[30%] flex flex-row justify-self-end">
 				<!-- num reviews -->
 				<div
-					class="rounded-md w-[50%] h-full bg-white text-center text-7xl drop-shadow-md flex flex-col justify-center"
+					class="rounded-2xl w-[50%] h-full bg-white text-center text-7xl drop-shadow-md flex flex-col"
 				>
 					<div>
 						{totalStudents}
@@ -251,7 +251,7 @@
 				</div>
 				<!-- num professors -->
 				<div
-					class="rounded-md w-[50%] ml-3 h-full bg-white text-center drop-shadow-md flex flex-col justify-center"
+					class="rounded-2xl w-[50%] ml-3 h-full bg-white text-center drop-shadow-md flex flex-col justify-center"
 				>
 					<div class="text-7xl">
 						{profs.length}
@@ -265,11 +265,11 @@
 			<div class="flex mb-5">
 				<div class="w-1/2">
 					<p class="font-normal">Expected Grade</p>
-					<h1>{data[0].overall_average_grade}</h1>
+					<h1>{Math.round(data[0].overall_average_grade) + 5}%</h1>
 				</div>
 				<div class="w-1/2">
 					<p class="font-normal">Hours/Week</p>
-					<h1>{data[0].overall_average_work}</h1>
+					<h1>{Math.round(data[0].overall_average_work)}</h1>
 				</div>
 			</div>
 			Grade Vs Hours
