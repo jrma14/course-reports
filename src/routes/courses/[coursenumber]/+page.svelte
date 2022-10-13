@@ -222,8 +222,8 @@
 
 <div class="flex flex-col h-[100vw - 64px] font-bold text-3xl w-full">
 	<OverallHeader title={courseData[0].course_title} number={courseData[0].course_number} />
-	<div id="stats" class="w-full h-[70%] flex flex-row">
-		<div id="left-holder" class="w-[38%] h-full flex flex-col m-3">
+	<div id="stats" class="w-full h-[70%] flex flex-row bg-base-100">
+		<div id="left-holder" class="w-[38%] h-full flex flex-col m-3 mr-0">
 			<!-- Rating Box -->
 			<div class="rounded-md h-[70%] text-center mb-3">
 				<div
@@ -261,7 +261,7 @@
 			</div>
 		</div>
 		<!-- Expected grade / hrs per week section -->
-		<div class="w-[62%] m-3 h-full bg-white rounded-2xl text-center p-5">
+		<div class="w-[62%] m-3 h-full bg-white rounded-2xl text-center p-5 drop-shadow-md">
 			<div class="flex mb-5">
 				<div class="w-1/2">
 					<p class="text-gray-500 font-light text-xl">Expected Grade</p>

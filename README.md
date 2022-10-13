@@ -49,7 +49,7 @@ Think of 1,3, and 4 in particular in a similar vein to the design / tech achieve
 - **Can I use XYZ framework?** You can use any web-based frameworks or tools available, but for your server programming you need to use Node.js. Your client-side scripting language should be either JavaScript or TypeScript.
 
 # Course Reports App
-Project Link: https://wpi-course-reports.vercel.app/
+Project Link: https://course-reports.vercel.app/
 
 We created a course reports application which is used to view course report data.
 Currently, WPI uses OSCAR to view this data but it is not very user friendly.
