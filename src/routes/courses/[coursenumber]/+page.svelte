@@ -3,27 +3,13 @@
 	import { onMount } from 'svelte';
 
 	import * as d3 from 'd3';
+	import Logo from '../../../lib/components/logo.svelte';
 	export let data;
 	const courseData = Object.values(data);
 	var exData = [30, 86, 168, 281, 303, 365];
 
 	let el;
-	// console.log(courseData);
 	// replace course number - with space
-
-	onMount(() => {
-		d3.select(el)
-			.selectAll('div')
-			.data(exData)
-			.enter()
-			.append('div')
-			.style('width', function (d) {
-				return d + 'px';
-			})
-			.text(function (d) {
-				return d;
-			});
-	});
 
 	let avgRating = 0;
 	let ratingSum = 0;
@@ -32,7 +18,6 @@
 	// make a list of profs and their average ratings
 	// list form is [ profName: { avgRating: 4.5, numRatings: 10 } ]
 	for (let i = 0; i < courseData.length; i++) {
-		// console.log(courseData[i]);
 		if (
 			courseData[i]['course_report_data']['overallRatings']['overallQuality']['average'] != null
 		) {
@@ -61,10 +46,132 @@
 		);
 	}
 
-	console.log(profAvgs);
 	avgRating = ratingSum / ratingCount;
 	//round to 2 decimal places
 	avgRating = Math.round((avgRating + Number.EPSILON) * 100) / 100;
+
+	let profGradeVsHrs = {};
+	for (let course of courseData) {
+		if (profGradeVsHrs[course.first_name + ' ' + course.last_name]) {
+			let newN = profGradeVsHrs[course.first_name + ' ' + course.last_name][2] + 1;
+			let newExpectedGrade =
+				(parseFloat(course.course_report_data.misc.expectedGrade.average) +
+					profGradeVsHrs[course.first_name + ' ' + course.last_name][0]) /
+				newN;
+			let newOutsideClassTime =
+				(parseFloat(course.course_report_data.misc.outsideClassTime.average) +
+					profGradeVsHrs[course.first_name + ' ' + course.last_name][1]) /
+				newN;
+			profGradeVsHrs[course.first_name + ' ' + course.last_name] = [
+				newExpectedGrade,
+				newOutsideClassTime,
+				newN
+			];
+		} else {
+			profGradeVsHrs[course.first_name + ' ' + course.last_name] = [
+				parseFloat(course.course_report_data.misc.expectedGrade.average),
+				parseFloat(course.course_report_data.misc.outsideClassTime.average),
+				1
+			];
+		}
+	}
+
+	let dataset1 = [];
+	for (let prof of Object.keys(profGradeVsHrs)) {
+		let temp = profGradeVsHrs[prof].slice(0, 2);
+		temp.push(prof);
+		dataset1.push(temp);
+	}
+	// console.log('dataset', dataset1);
+
+	const margin = { top: 10, right: 30, bottom: 30, left: 60 },
+		width = 460 - margin.left - margin.right,
+		height = 400 - margin.top - margin.bottom;
+
+	// console.log(profGradeVsHrs);
+	onMount(() => {
+		d3.select(el)
+			.selectAll('div')
+			.data(exData)
+			.enter()
+			.append('div')
+			.style('width', function (d) {
+				return d + 'px';
+			})
+			.text(function (d) {
+				return d;
+			});
+
+		const svg = d3
+			.select('#my_dataviz')
+			.append('svg')
+			.attr('width', '100%')
+			.attr('height', '100%')
+			.style('display', 'flex')
+			// .style('margin-left', '100px')
+			.append('g')
+			.attr('x', '50%')
+			.attr('y', '50%')
+			.attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+		const x = d3.scaleLinear().domain([0, 5]).range([0, width]);
+		svg.append('g').attr('transform', `translate(0, ${height})`).call(d3.axisBottom(x));
+
+		// Add Y axis
+		const y = d3.scaleLinear().domain([0, 5]).range([height, 0]);
+		svg.append('g').call(d3.axisLeft(y));
+
+		// Add dots
+		svg
+			.append('g')
+			.selectAll('dot')
+			.data(dataset1)
+			.join('circle')
+			.attr('cx', function (d) {
+				return x(d[1]);
+			})
+			.attr('cy', function (d) {
+				return y(d[0]);
+			})
+			.attr('r', 5)
+			.attr('class', 'scatterdot')
+			.style('fill', '#69b3a2');
+
+		// console.log(dataset1);
+		console.log(svg.selectAll('.scatterdot'));
+		svg
+			.append('g')
+			.selectAll('circle')
+			.data(dataset1)
+			.join('text')
+			.text((d) => {
+				console.log(d);
+				return d[2];
+			})
+			.attr('x', function (d) {
+				return x(d[1]);
+			})
+			.attr('y', function (d) {
+				return y(d[0]);
+			})
+			.style('font-size', '20px')
+			.style('text-color', 'black');
+
+		svg
+			.append('text')
+			.attr('text-anchor', 'end')
+			.attr('transform', 'rotate(-90)')
+			.attr('y', -margin.left + 20)
+			.attr('x', -margin.top)
+			.text('Expected Grade');
+
+		svg
+			.append('text')
+			.attr('text-anchor', 'end')
+			.attr('x', width)
+			.attr('y', height + margin.top + 20)
+			.text('Hours/Week');
+	});
 </script>
 
 <div class="flex flex-col h-full font-bold text-3xl w-full">
@@ -94,9 +201,9 @@
 			</div>
 		</div>
 		<!-- Expected grade / hrs per week section -->
-		<div class="w-[62%] m-3 rounded-sm h-full bg-red-400 text-center">
+		<div class="w-[62%] m-3 h-full bg-white rounded-2xl text-center">
 			Grade / Hours
-			<div class="rounded-md m-3 bg-blue-500">Chart</div>
+			<div class="w-full h-full flex justify-center items-center" id="my_dataviz" />
 		</div>
 	</div>
 </div>
