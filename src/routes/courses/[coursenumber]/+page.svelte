@@ -4,7 +4,19 @@
 	import { Scatter } from 'svelte-chartjs';
 	import * as d3 from 'd3';
 
-	import Logo from '../../../lib/components/logo.svelte';
+	import {
+		Chart as ChartJS,
+		Title,
+		Tooltip,
+		Legend,
+		LineElement,
+		CategoryScale,
+		LinearScale,
+		PointElement
+	} from 'chart.js';
+
+	ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
+
 	export let data;
 	const courseData = Object.values(data);
 
@@ -28,7 +40,7 @@
 		}
 
 		// if prof is not in list, add them using their name as the key
-		let profName = courseData[i]['last_name'] + ' ' + courseData[i]['first_name'];
+		let profName = courseData[i]['last_name'] + ', ' + courseData[i]['first_name'];
 		if (profAvgs[profName] == null) {
 			profAvgs[profName] = {
 				avgRating: 0,
@@ -46,43 +58,113 @@
 		);
 	}
 
-	console.log(profAvgs);
 	avgRating = ratingSum / ratingCount;
 	//round to 2 decimal places
 	avgRating = Math.round((avgRating + Number.EPSILON) * 100) / 100;
 
-	let profGradeVsHrs = {};
+	let profData = {};
 	for (let course of courseData) {
-		if (profGradeVsHrs[course.first_name + ' ' + course.last_name]) {
-			let newN = profGradeVsHrs[course.first_name + ' ' + course.last_name][2] + 1;
-			let newExpectedGrade =
-				(parseFloat(course.course_report_data.misc.expectedGrade.average) +
-					profGradeVsHrs[course.first_name + ' ' + course.last_name][0]) /
-				newN;
-			let newOutsideClassTime =
-				(parseFloat(course.course_report_data.misc.outsideClassTime.average) +
-					profGradeVsHrs[course.first_name + ' ' + course.last_name][1]) /
-				newN;
-			profGradeVsHrs[course.first_name + ' ' + course.last_name] = [
-				newExpectedGrade,
-				newOutsideClassTime,
-				newN
-			];
+		if (profData[course.first_name + ' ' + course.last_name]) {
+			let curr = profData[course.first_name + ' ' + course.last_name];
+			let newN = curr.responses + 1;
+			let newExpectedGrade = (calcGrade(course) + curr.expectedGrade * curr.responses) / newN;
+			let newOutsideClassTime = (calcHrs(course) + curr.hrsWk * curr.responses) / newN;
+			curr.expectedGrade = newExpectedGrade;
+			curr.hrsWk = newOutsideClassTime;
+			curr.responses = newN;
 		} else {
-			profGradeVsHrs[course.first_name + ' ' + course.last_name] = [
-				parseFloat(course.course_report_data.misc.expectedGrade.average),
-				parseFloat(course.course_report_data.misc.outsideClassTime.average),
-				1
-			];
+			profData[course.last_name + ', ' + course.first_name] = {
+				name: course.last_name + ', ' + course.first_name,
+				expectedGrade: calcGrade(course),
+				hrsWk: calcHrs(course),
+				responses: 1
+			};
 		}
 	}
 
-	let dataset1 = [];
-	for (let prof of Object.keys(profGradeVsHrs)) {
-		let temp = profGradeVsHrs[prof].slice(0, 2);
-		temp.push(prof);
-		dataset1.push(temp);
+	function calcGrade(course) {
+		let sum = 0;
+		sum += parseInt(course.course_report_data.misc.expectedGrade.scoreBreakdown.oneStar) * 95;
+		sum += parseInt(course.course_report_data.misc.expectedGrade.scoreBreakdown.twoStar) * 85;
+		sum += parseInt(course.course_report_data.misc.expectedGrade.scoreBreakdown.threeStar) * 75;
+		sum += parseInt(course.course_report_data.misc.expectedGrade.scoreBreakdown.fourStar) * 60;
+		return (
+			sum /
+			(course.course_report_data.misc.expectedGrade.surveySize -
+				parseInt(course.course_report_data.misc.expectedGrade.scoreBreakdown.fiveStar))
+		);
 	}
+
+	function calcHrs(course) {
+		let sum = 0;
+		sum +=
+			parseInt(course.course_report_data.misc.outsideClassTime.hourBreakdown.elevenToFifteen) * 13;
+		sum += parseInt(course.course_report_data.misc.outsideClassTime.hourBreakdown.oneToFive) * 3;
+		sum += parseInt(course.course_report_data.misc.outsideClassTime.hourBreakdown.sixToTen) * 8;
+		sum +=
+			parseInt(course.course_report_data.misc.outsideClassTime.hourBreakdown.sixteenToTwenty) * 18;
+		sum +=
+			parseInt(course.course_report_data.misc.outsideClassTime.hourBreakdown.twentyOnePlus) * 22;
+		sum += parseInt(course.course_report_data.misc.outsideClassTime.hourBreakdown.zero) * 0;
+		return sum / course.course_report_data.misc.outsideClassTime.surveySize;
+	}
+
+	let scatterData = {
+		labels: [],
+		datasets: [
+			{
+				borderColor: [],
+				backgroundColor: [],
+				data: [],
+				pointRadius: 8,
+				pointHoverRadius: 10
+			}
+		]
+	};
+
+	const options = {
+		scales: {
+			x: {
+				title: {
+					display: true,
+					text: 'Hours/Week'
+				},
+				type: 'linear',
+				reverse: true,
+				position: 'bottom'
+			},
+			y: {
+				title: {
+					display: true,
+					text: 'Expected Grade'
+				},
+				ticks: {
+					// Include a dollar sign in the ticks
+					callback: function (value, index, ticks) {
+						return value + '%';
+					}
+				},
+				min: 60,
+				max: 100
+			}
+		},
+		plugins: {
+			legend: {
+				display: false
+			},
+			tooltip: {
+				enabled: true,
+				mode: 'index',
+				intersect: false,
+				callbacks: {
+					label: function (context) {
+						let label = Object.values(profData)[context.dataIndex].name;
+						return label;
+					}
+				}
+			}
+		}
+	};
 
 	//update profAvgs to have the average rating
 	for (let prof in profAvgs) {
@@ -90,7 +172,6 @@
 		profAvgs[prof]['avgRating'] =
 			Math.round((profAvgs[prof]['avgRating'] + Number.EPSILON) * 100) / 100;
 	}
-	// console.log(profAvgs);
 
 	let profs = Object.keys(profAvgs);
 	profs.sort((a, b) => {
@@ -101,6 +182,12 @@
 	let colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 	for (let i = 0; i < profs.length; i++) {
 		profColors[profs[i]] = colorScale(i);
+	}
+
+	for (let prof of Object.keys(profData)) {
+		scatterData.datasets[0].data.push({ x: profData[prof].hrsWk, y: profData[prof].expectedGrade });
+		scatterData.datasets[0].backgroundColor.push(profColors[prof]);
+		scatterData.datasets[0].borderColor.push(profColors[prof]);
 	}
 </script>
 
@@ -134,20 +221,19 @@
 			</div>
 		</div>
 		<!-- Expected grade / hrs per week section -->
-		<div class="w-[62%] m-3 h-full bg-white rounded-2xl text-center">
-			Grade / Hours
-			<Scatter {dataset1} options={{ responsive: true }} />
+		<div class="w-[62%] m-3 h-full bg-white rounded-2xl text-center p-5">
+			<div class="flex mb-5">
+				<div class="w-1/2">
+					<p class="font-normal">Expected Grade</p>
+					<h1>{data[0].overall_average_grade}</h1>
+				</div>
+				<div class="w-1/2">
+					<p class="font-normal">Hours/Week</p>
+					<h1>{data[0].overall_average_work}</h1>
+				</div>
+			</div>
+			Grade Vs Hours
+			<Scatter data={scatterData} {options} />
 		</div>
 	</div>
 </div>
-
-<style>
-	.chart :global(div) {
-		font: 10px sans-serif;
-		background-color: steelblue;
-		text-align: right;
-		padding: 3px;
-		margin: 1px;
-		color: white;
-	}
-</style>
