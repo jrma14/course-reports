@@ -9,6 +9,7 @@
 
 	let listStart;
 	let listEnd;
+	let virtualListDiv;
 
 	let courseData = [];
 	let metadata = {
@@ -53,6 +54,7 @@
 		<SearchBar
 			on:search={(e) => {
 				$filters.searchQuery = e.detail;
+				virtualListDiv.firstChild.scroll(0, 0);
 			}}
 		/>
 		<div class="w-full h-[calc(100vh-64px-100px)] bg-white rounded-2xl drop-shadow-md">
@@ -68,7 +70,7 @@
 				</div>
 			</div>
 			{#if courseData.length}
-				<div class="h-[calc(100%-56px)]">
+				<div bind:this={virtualListDiv} class="h-[calc(100%-56px)]">
 					<VirtualList items={courseData} bind:start={listStart} bind:end={listEnd} let:item>
 						<div class="h-24">
 							<ClassCard course={item} />
