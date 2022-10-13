@@ -86,6 +86,7 @@ We added several features to the app to make it more user friendly and easier to
 - Helped grab data from OSCAR and the WPI course catalog
 - Made algorithms to merge the data from OSCAR and the WPI course catalog
 - Made algorithms to aggregate data for the course overviews
+- Helped refactor the db to use our new schemas and tables
 - Figma Mockups
 
 ### Nathan
@@ -93,6 +94,8 @@ We added several features to the app to make it more user friendly and easier to
 - Helped import the new data into the database
 - Made bar chart to view average rating per professor
 - Made search bar for the course overview page
+- Made pill buttons for the course overview page
+- Helped refactor the db to use our new schemas and tables
 - Figma Mockups
 
 ### Jacob
@@ -101,6 +104,7 @@ We added several features to the app to make it more user friendly and easier to
 - Helped make the api endpoints for grabbing data from the database
 - Made scatter chart to view average grade vs weekly workload per professor
 - Made filter for the course overview page
+- Helped refactor the db to use our new schemas and tables
 - Figma Mockups
 
 Video Link:
