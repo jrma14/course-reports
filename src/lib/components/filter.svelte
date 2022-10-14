@@ -53,6 +53,7 @@
 		<Pill text="D Term" size="sm" on:selected={(e) => updateTermPills(3, e.detail)} />
 	</div>
 	<div class="text-3xl font-semibold ml-5 mt-5">Subject</div>
+	<hr class="mb-5 mr-5 ml-5 mt-1" />
 	<DropDown
 		subjectText="Science"
 		pills={[
