@@ -27,12 +27,6 @@
 			}
 		}
 		$filters.subjects = subFilter;
-		// $filters = $filters;
-		// subject.set(subFilter);
-		// console.log($filters.subjects);
-
-		// run the search
-		// runSearch();
 	}
 
 	$: dropdownClass = isOpen ? 'collapse-open' : 'collapse-close';
@@ -71,7 +65,8 @@
 		{subjectText}
 	</div>
 	<div class="collapse-content">
-		<div class="grid grid-cols-2 gap-4">
+		<!-- <div class="grid grid-cols-2 gap-4"> -->
+		<div class="flex flex-wrap gap-y-4">
 			{#each pills as pill, ix}
 				<Pill
 					text={pill}

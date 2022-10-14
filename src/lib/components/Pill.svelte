@@ -9,12 +9,25 @@
 
 	// dispatch('search', searchQuery);
 
-	const uncheckedStyles = `flex justify-center p-3 items-center text-center rounded-full bg-base-100 ${
-		size === 'sm' ? 'w-20' : 'w-48 h-16'
-	} mr-auto ml-auto hover:cursor-pointer hover:bg-primary/50`;
-	const checkedStyles = `flex justify-center p-3 items-center rounded-full text-center text-white bg-primary ${
-		size === 'sm' ? 'w-20' : 'w-48 h-16'
-	} mr-auto ml-auto hover:cursor-pointer`;
+	const getPillSize = () => {
+		if (size === 'sm') {
+			return 'w-20 h-8';
+		} else {
+			if (text.length > 24) {
+				return 'w-64 h-12';
+			} else {
+				return 'w-32 h-12';
+			}
+			// return 'w-32 h-12';
+		}
+	};
+
+	const uncheckedStyles = `flex justify-center p-3 items-center text-center rounded-full bg-base-100 
+	${getPillSize()} mr-auto ml-auto hover:cursor-pointer hover:bg-primary/50`;
+
+	const checkedStyles = `flex justify-center p-3 items-center rounded-full text-center text-white bg-primary 
+	${getPillSize()} mr-auto ml-auto hover:cursor-pointer`;
+
 	let pillClasses = uncheckedStyles;
 
 	$: pillClasses = checked ? checkedStyles : uncheckedStyles;

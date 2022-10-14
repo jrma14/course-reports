@@ -62,7 +62,7 @@
 			'Computer Science',
 			'Data Science',
 			'Geology',
-			'Interactive Media & Game Development',
+			'IMGD',
 			'Mathematical Sciences',
 			'Mathematics for Educators',
 			'Masters for Physics Educators',
@@ -74,21 +74,21 @@
 	<DropDown
 		subjectText="Engineering"
 		pills={[
-			'Aerospace Engineering',
-			'Architectural Engineering',
-			'Biomedical Engineering',
-			'Civil Engineering',
-			'Chemical Engineering',
-			'Electrical & Computer Engineering',
+			'Aerospace',
+			'Architectural',
+			'Biomedical',
+			'Civil',
+			'Chemical',
+			'Electrical & Computer',
 			'Engineering Science',
 			'Fire Protection',
-			'Mechanical Engineering',
-			'Manufacturing Engineering',
-			'Materials Science & Engineering',
-			'Nuclear Science & Engineering',
-			'Operations & Industrial Engineering',
-			'Robotics Engineering',
-			'Systems Engineering'
+			'Mechanical',
+			'Manufacturing',
+			'Materials Science',
+			'Nuclear Science',
+			'Operations & Industrial',
+			'Robotics',
+			'Systems'
 		]}
 		subjects={[
 			'AE',
@@ -115,11 +115,11 @@
 			'Arabic',
 			'Chinese',
 			'English as a Second Language',
-			'German',
 			'English for International Students',
+			'German',
 			'Spanish'
 		]}
-		subjects={['AB', 'CN', '', 'GN', 'ISE', 'SP']}
+		subjects={['AB', 'CN', '', 'ISE', 'GN', 'SP']}
 	/>
 	<DropDown
 		subjectText="Humanities"
