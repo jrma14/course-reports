@@ -48,7 +48,10 @@ export async function GET({ url }) {
 
 	const query = `SELECT course_title, course_number, subject, overall_average_rating, overall_average_grade, overall_average_work FROM course_overviews ${filterString} LIMIT ? OFFSET ?`;
 
+	let [rows] = await connection.execute(query, params);
+
 	let __metadata = {
+		'row_count': rows.length,
 		'offsets': {
 			'next': offset + limit,
 			'current': offset,
@@ -56,7 +59,6 @@ export async function GET({ url }) {
 		}
 	}
 	// console.log(query, params, '\n');
-	let [rows] = await connection.execute(query, params);
 
 	return json({ '__metadata': __metadata, 'courses': rows });
 }

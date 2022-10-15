@@ -5,7 +5,7 @@
 	import { filters } from '$lib/stores/filter.js';
 	import ClassCard from '../lib/components/ClassCard.svelte';
 	import { PUBLIC_URL } from '$env/static/public';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import loading_icon from '$lib/assets/loading-icon.png';
 
 	let listStart;
@@ -14,8 +14,9 @@
 
 	let courseData = [];
 	let metadata = {
+		row_count: 50,
 		offsets: {
-			next: 20,
+			next: 50,
 			current: 0,
 			previous: 0
 		}
@@ -78,6 +79,11 @@
 							<ClassCard course={item} />
 						</div>
 					</VirtualList>
+				</div>
+			{:else if metadata.row_count == 0}
+				<div class="flex flex-col items-center justify-center h-full">
+					<h1 class="text-2xl font-bold">No Results Found</h1>
+					<h1 class="text-xl">Try a different search</h1>
 				</div>
 			{:else}
 				<div class="h-[calc(100%-56px)] flex justify-center items-center">
