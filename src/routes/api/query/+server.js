@@ -58,7 +58,6 @@ export async function GET({ url }) {
 			'previous': offset - limit > 0 ? offset - limit : 0
 		}
 	}
-	// console.log(query, params, '\n');
 
 	return json({ '__metadata': __metadata, 'courses': rows });
 }

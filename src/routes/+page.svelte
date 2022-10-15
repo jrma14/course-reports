@@ -32,7 +32,6 @@
 	};
 
 	$: if (metadata.offsets.next - listEnd <= 10) {
-		console.log('fetching more');
 		fetchData($filters, metadata.offsets.next).then((json) => {
 			courseData = courseData.concat(json['courses']);
 			metadata = json['__metadata'];
@@ -40,7 +39,6 @@
 	}
 
 	const unsubscribe = filters.subscribe(async (filter) => {
-		console.log(filter.subjects);
 		const json = await fetchData(filter);
 		courseData = json['courses'];
 		metadata = json['__metadata'];

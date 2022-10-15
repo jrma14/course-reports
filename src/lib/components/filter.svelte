@@ -9,7 +9,6 @@
 	//function for updating termPills
 	function updateTermPills(index, value) {
 		termPills[index] = value;
-		// console.log(termPills);
 		//turn termPills into a string with the values of the selected pills separated by commas
 		let termString = '';
 		// index gets mapped to letter
@@ -30,10 +29,6 @@
 		}
 
 		$filters.terms = termString;
-		// term.set(termString);
-		console.log('setting classes');
-		// runSearch();
-		// termPills = [...termPills];
 	}
 
 	let helpVisible = false;
