@@ -37,7 +37,7 @@
 	href={`/courses/${(course['course_number'] ?? '').replaceAll(' ', '-')}`}
 >
 	<div class="hover:bg-blue-50 rounded-lg p-5 flex w-full h-full items-center mb-auto mt-auto">
-		<div class="flex flex-grow">
+		<div class="flex flex-grow w-3/4">
 			<h1 class="font-bold underline text-3xl mr-10">
 				{course['course_number']}
 			</h1>
@@ -46,7 +46,7 @@
 			</h1>
 		</div>
 		<!-- <div class="flex w-1/4 justify-between h-full items-center"> -->
-		<div class="w-1/4 grid grid-cols-3">
+		<div class="w-1/4 grid grid-cols-3 items-center content-center justify-items-center">
 			<div
 				class="p-5 w-20 h-1/2 {getRatingColor(
 					course['overall_average_rating']
@@ -62,7 +62,7 @@
 				{Math.round(course['overall_average_grade']) + 5}%
 			</div>
 			<div
-				class="p-5 h-10 w-26 {getWorkColor(
+				class="p-5 h-10 w-20 {getWorkColor(
 					course['overall_average_work']
 				)} rounded-xl flex justify-center items-center font-semibold text-2xl"
 			>

@@ -6,6 +6,7 @@
 	import ClassCard from '../lib/components/ClassCard.svelte';
 	import { PUBLIC_URL } from '$env/static/public';
 	import { onDestroy, onMount } from 'svelte';
+	import loading_icon from '$lib/assets/loading-icon.png';
 
 	let listStart;
 	let listEnd;
@@ -77,6 +78,10 @@
 							<ClassCard course={item} />
 						</div>
 					</VirtualList>
+				</div>
+			{:else}
+				<div class="h-[calc(100%-56px)] flex justify-center items-center">
+					<img src={loading_icon} alt="Loading icon" class="h-20 w-20 ml-5" />
 				</div>
 			{/if}
 		</div>

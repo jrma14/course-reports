@@ -19,7 +19,7 @@
 			bind:value={searchQuery}
 			on:keyup={runSearch}
 		/>
-		<button class="bg-white btn btn-square" on:click={runSearch}>
+		<button class="bg-white btn btn-square" on:click={runSearch} aria-label="Search">
 			<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
 				><path
 					stroke-linecap="round"
