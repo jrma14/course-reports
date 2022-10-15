@@ -12,13 +12,13 @@
 	<meta name="keywords" content="WPI, Course Reports, OSCAR, Course Ratings" />
 </svelte:head>
 
-<div class="w-screen h-screen bg-base-100" data-theme="mytheme">
+<div class="w-screen h-screen bg-base-100">
 	<Header />
 	<slot />
 </div>
 
 <style>
-	:global(body) {
-		background-color: #f5f5f5;
-	}
+	/* :global(body) {
+		background-color: #ecf0f1;
+	} */
 </style>
