@@ -6,76 +6,57 @@ const RES_LIMIT = 50;
 /** @type {import ('./$types').RequestHandler} */
 export async function GET({ url }) {
 	const connection = await connect();
-	let queryParams = [];
-	let queries = [];
-	let termQuery = 'terms_available LIKE ? ';
-	if (url.searchParams.get('term').length > 0) {
-		let term = url.searchParams.get('term');
-		let terms = term.split(',');
-		let tQ = [];
-		for (let t of terms) {
-			tQ.push(termQuery);
-			queryParams.push(`%${t}%`);
-		}
-		queries.push(`(${tQ.join('OR ')}) `);
-	}
-	let sQuery = '(course_title LIKE ? OR course_number LIKE ?) ';
-	if (url.searchParams.get('searchQuery').length > 0) {
-		queryParams.push(`%${url.searchParams.get('searchQuery')}%`);
-		queryParams.push(`%${url.searchParams.get('searchQuery')}%`);
-		queries.push(sQuery);
-	}
-	let subjectQuery = 'subject_abbreviation LIKE ? ';
-	if (url.searchParams.get('subjects').length > 0) {
-		let param = url.searchParams.get('subjects');
-		let subjects = param.split(',');
-		let subjectsQuery = [];
-		for (let subject of subjects) {
-			subjectsQuery.push(subjectQuery);
-			queryParams.push(`%${subject}%`);
-		}
-		queries.push(`(${subjectsQuery.join('OR ')}) `);
-	}
-	let search =
-		'SELECT course_title, course_number, subject, overall_average_rating, overall_average_grade, overall_average_work FROM course_overviews';
-	// 'SELECT course_title, course_number, subject FROM courses  GROUP BY course_title, course_number, subject';
-	// console.log(queryParams.length)
-	// console.log(search);
-	if (queryParams.length > 0) {
-		search =
-			'SELECT course_title, course_number, subject, overall_average_rating, overall_average_grade, overall_average_work FROM course_overviews WHERE ' +
-			queries.join('AND ');
+
+	const term = url.searchParams.get('term');
+	const subjects = url.searchParams.get('subjects');
+	const searchQuery = url.searchParams.get('searchQuery');
+	const offset = parseInt(url.searchParams.get('offset')) || 0;
+	const limit = parseInt(url.searchParams.get('limit')) || RES_LIMIT;
+
+	const filters = [];
+	const params = [];
+
+	if (term) {
+		const terms = term.split(',');
+		const termStrings = [];
+		terms.map((term) => {
+			termStrings.push('terms_available LIKE ?');
+			params.push(term);
+		});
+		filters.push(`(${termStrings.join(' OR ')})`);
 	}
 
-	//add limit to query
-	search += ` LIMIT ${RES_LIMIT}`;
-	if (url.searchParams.get('offset').length > 0) {
-		search += ` OFFSET ${url.searchParams.get('offset')}`
+	if (subjects) {
+		const subjectsArray = subjects.split(',');
+		const subjectStrings = [];
+		subjectsArray.map((subject) => {
+			subjectStrings.push('subject_abbreviation = ?');
+			params.push(subject);
+		});
+		filters.push(`(${subjectStrings.join(' OR ')})`);
 	}
-	// let metaParams = []
-	// for (const [key, value] of url.searchParams) {
-	// 	if (key === 'offset') {
-	// 		metaParams.push(`offset=${parseInt(url.searchParams.get('offset')) + RES_LIMIT}`)
-	// 	} else {
-	// 		metaParams.push(`${key}=${value}`)
-	// 	}
-	// .map(param => {
-	// 	console.log(param)
-	// })
+
+	if (searchQuery) {
+		filters.push(`MATCH(course_title, course_number) AGAINST(? IN BOOLEAN MODE)`);
+		params.push(`${searchQuery}*`);
+	}
+
+	params.push(limit);
+	params.push(offset);
+
+	const filterString = filters.length ? `WHERE ${filters.join(' AND ')}` : '';
+
+	const query = `SELECT course_title, course_number, subject, overall_average_rating, overall_average_grade, overall_average_work FROM course_overviews ${filterString} LIMIT ? OFFSET ?`;
+
 	let __metadata = {
 		'offsets': {
-			'next': parseInt(url.searchParams.get('offset')) + RES_LIMIT,
-			'current': parseInt(url.searchParams.get('offset')),
-			'previous': parseInt(url.searchParams.get('offset')) - RES_LIMIT > 0 ? parseInt(url.searchParams.get('offset')) - RES_LIMIT : 0
+			'next': offset + limit,
+			'current': offset,
+			'previous': offset - limit > 0 ? offset - limit : 0
 		}
 	}
-	// console.log(url)
-	// console.log(__metadata)
-	// console.log(search);
-	// console.log(queryParams);
-	// console.log(search)
-	// console.log(queryParams)
-	let [rows] = await connection.execute(search, queryParams);
-	// console.log(rows)
+	// console.log(query, params, '\n');
+	let [rows] = await connection.execute(query, params);
+
 	return json({ '__metadata': __metadata, 'courses': rows });
 }
