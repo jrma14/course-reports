@@ -24,7 +24,7 @@
 	const getWorkColor = (work) => {
 		if (work <= 8) {
 			return 'bg-success';
-		} else if (work >= 9 && work < 16) {
+		} else if (work > 8 && work < 16) {
 			return 'bg-warning';
 		} else {
 			return 'bg-error';
