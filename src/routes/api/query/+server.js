@@ -37,8 +37,12 @@ export async function GET({ url }) {
 	}
 
 	if (searchQuery) {
-		filters.push(`MATCH(course_title, course_number) AGAINST(? IN BOOLEAN MODE)`);
-		params.push(`${searchQuery}*`);
+		// filters.push(
+		// 	`MATCH(course_title, course_number) AGAINST(? IN BOOLEAN MODE) and course_title LIKE ? and course_number LIKE ?`
+		// );
+		// params.push(`${searchQuery}*`, `%${searchQuery}%`, `%${searchQuery}%`);
+		filters.push(`course_title LIKE ? OR course_number LIKE ?`);
+		params.push(`%${searchQuery}%`, `%${searchQuery}%`);
 	}
 
 	params.push(limit);
@@ -47,18 +51,18 @@ export async function GET({ url }) {
 	const filterString = filters.length ? `WHERE ${filters.join(' AND ')}` : '';
 
 	const query = `SELECT course_title, course_number, subject, overall_average_rating, overall_average_grade, overall_average_work FROM course_overviews ${filterString} LIMIT ? OFFSET ?`;
-
+	console.log(query, params, '\n');
 	let [rows] = await connection.execute(query, params);
 
 	let __metadata = {
-		'row_count': rows.length,
-		'offsets': {
-			'next': offset + limit,
-			'current': offset,
-			'previous': offset - limit > 0 ? offset - limit : 0
+		row_count: rows.length,
+		offsets: {
+			next: offset + limit,
+			current: offset,
+			previous: offset - limit > 0 ? offset - limit : 0
 		}
-	}
+	};
 	// console.log(query, params, '\n');
 
-	return json({ '__metadata': __metadata, 'courses': rows });
+	return json({ __metadata: __metadata, courses: rows });
 }
