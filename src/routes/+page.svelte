@@ -11,6 +11,7 @@
 	let listStart;
 	let listEnd;
 	let virtualListDiv;
+	let fetchingNewData = false;
 
 	let courseData = [];
 	let metadata = {
@@ -31,13 +32,16 @@
 		return await res.json();
 	};
 
-	$: if (metadata.offsets.next - listEnd <= 10) {
-		console.log('fetching more');
+	$: if (metadata.offsets.next - listEnd <= 10 && !fetchingNewData) {
+		fetchingNewData = true;
 		fetchData($filters, metadata.offsets.next).then((json) => {
 			courseData = courseData.concat(json['courses']);
 			metadata = json['__metadata'];
+			fetchingNewData = false;
 		});
 	}
+
+	$: console.log(fetchingNewData);
 
 	const unsubscribe = filters.subscribe(async (filter) => {
 		console.log(filter.subjects);
