@@ -51,7 +51,7 @@ export async function GET({ url }) {
 	const filterString = filters.length ? `WHERE ${filters.join(' AND ')}` : '';
 
 	const query = `SELECT course_title, course_number, subject, overall_average_rating, overall_average_grade, overall_average_work FROM course_overviews ${filterString} LIMIT ? OFFSET ?`;
-	console.log(query, params, '\n');
+
 	let [rows] = await connection.execute(query, params);
 
 	let __metadata = {

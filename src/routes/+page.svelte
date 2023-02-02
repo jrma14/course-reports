@@ -41,10 +41,7 @@
 		});
 	}
 
-	$: console.log(fetchingNewData);
-
 	const unsubscribe = filters.subscribe(async (filter) => {
-		console.log(filter.subjects);
 		const json = await fetchData(filter);
 		courseData = json['courses'];
 		metadata = json['__metadata'];
